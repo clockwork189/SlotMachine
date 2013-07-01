@@ -44,15 +44,16 @@ swig.init({
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
-  app.set('view engine', 'ejs');
+  app.engine('html', cons.swig);
+  app.set('view engine', 'html');
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
-  app.use(app.router);
+  //app.use(express.session({ store: new mongoStore({db: app.set('db-name')}), secret: 'topsecret' }));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.use(app.router);
 });
 
 app.configure('development', function(){
@@ -60,6 +61,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/privacy', routes.privacy);
 app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){

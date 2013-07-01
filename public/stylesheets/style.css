@@ -6,3 +6,23 @@ body {
 a {
   color: #00B7FF;
 }
+
+*{
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+#mainGameCanvas {
+	display: block;
+    margin: 40px auto;
+    outline: none;
+    border: 5px solid white;
+}
+
+@font-face
+{
+	font-family: segoeUI;
+	src: url('../fonts/Segoe UI Semibold.ttf'); /* IE9 */
+}
+
+.container {
+	font-family: segoeUI;
+}
