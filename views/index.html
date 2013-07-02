@@ -1,9 +1,84 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div id="slotmachine">
-	<canvas id="slots" width="540" height="221"></canvas>
-	<button id="play">Spin To Win</button>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+          	</button>
+          	<a class="brand" href="#"><img src="images/logo.png" style="width: 170px;" /></a>
+          	<div class="nav-collapse collapse">
+	            <!--
+	            <ul class="nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#contact">Contact</a></li>
+	            </ul>
+	        -->
+          	</div><!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="main_container">
+	<div class="game_container">
+		<h2 class="header-cta">Over <span class="highlight">$100,000</span> in prizes to be won</h2>
+		<div class="header_canvas">
+			<div class="iphone"></div>
+			<div class="spin_to_win"></div>
+			<div class="ipod"></div>
+			<div class="cta_arrow"></div>
+		</div>
+		<div class="inner_game_container">
+			<div class="orange_bg">
+				<div class="handle">
+					<img src="/images/handle.png" />
+				</div>
+				<div class="red_bg">
+					<div id="slotmachine">
+						<canvas id="slots" width="540" height="221"></canvas>
+					</div>
+				</div>
+				<h2 class="slot_text">TEST YOUR LUCK WITH OUR <span class="large_text">FREE</span> SPIN TO WIN GAME</h2>
+				<button id="play" class="btn btn-large btn-success">Spin To Win</button>
+			</div>
+			<div class="how_to_play">
+				<div class="spins_left">
+					<div class="count">0</div>
+					<div class="count">0</div>
+					<div class="count">0</div>
+					<div class="count">0</div>
+				</div>
+				<div class="spins_left_text">SPINS LEFT</div>
+				<button class="btn btn-inverse btn-large">Get More Spins</button><br/><br/>
+				<div class="how_to_play_text">
+					HOW TO PLAY
+				</div>
+				<div class="how_to_play_steps">
+					Get three of the same and you win a great prize!<br/><br/>
+				</div>
+				<div class="how_to_play_points">
+					<div class="steps">
+						<div class="points_1"></div><div class="how_to_play_steps">
+							Press "Spin Now" to begin the game
+						</div>
+					</div>
+					<div class="steps">
+						<div class="points_2"></div><div class="how_to_play_steps">
+							Match up 3 items in a row and win that prize
+						</div>
+					</div>
+					<div class="steps">
+						<div class="points_3"></div><div class="how_to_play_steps">
+							Follow the on screen instructions to claim your prize
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script src="javascripts/app.js"></script>
 {% endblock %}

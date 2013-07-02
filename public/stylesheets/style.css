@@ -1,6 +1,8 @@
 body {
+  background-color: #eff0f4;
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4); 
 }
 
 a {
@@ -22,7 +24,224 @@ a {
 	font-family: segoeUI;
 	src: url('../fonts/Segoe UI Semibold.ttf'); /* IE9 */
 }
-
+.handle {
+  float:left;
+  margin-left: -45px;
+}
+.orange_bg {
+  position: relative;
+  z-index: 1;
+  margin-top: 20px;
+  margin-left:30px;
+  width: 600px;
+  background-color: #f68c1e;
+  padding: 10px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  border-radius: 20px;
+  text-align: center;
+  float:left;
+}
+.red_bg {
+  background-color: #a2361e;
+  padding: 10px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  border-radius: 20px;
+}
+#slotmachine {
+  text-align: center;
+  background-color: #5d1f11;
+  padding: 10px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -khtml-border-radius: 20px;
+  border-radius: 20px;
+}
 .container {
 	font-family: segoeUI;
 }
+.navbar-inverse .navbar-inner {
+  background-color: #cecece;
+  background: -webkit-rgb(218, 219, 224);
+  background: -o-rgb(218, 219, 224);
+  background: -ms-rgb(218, 219, 224);
+  background: -moz-rgb(218, 219, 224);
+  background: rgb(218, 219, 224);
+}
+.navbar-inverse .nav .active>a, .navbar-inverse .nav .active>a:hover {
+  background-color: #bebebe;
+}
+
+.header-cta {
+  color: #fff;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4); 
+}
+.header-cta > .highlight {
+  color: #ffd21c;
+}
+
+#play {
+  font-size: 40px;
+  font-weight: bold;
+  width: 350px;
+  height:70px;
+  margin-bottom: -50px;
+}
+
+.slot_text {
+  color: #fff;
+  font-size: 18px;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4); 
+}
+
+.large_text {
+  font-size: 28px;
+}
+
+.main_container {
+  -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+   -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         3px 3px 5px 6px #ccc;
+   padding: 20px;
+  /* IE10 Consumer Preview */ 
+  background-image: -ms-radial-gradient(center, circle farthest-corner, #81BEF9 0%, #7AB2E7 100%);
+  /* Mozilla Firefox */ 
+  background-image: -moz-radial-gradient(center, circle farthest-corner, #81BEF9 0%, #7AB2E7 100%);
+  /* Opera */ 
+  background-image: -o-radial-gradient(center, circle farthest-corner, #81BEF9 0%, #7AB2E7 100%);
+  /* Webkit (Safari/Chrome 10) */ 
+  background-image: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, #81BEF9), color-stop(1, #7AB2E7));
+  /* Webkit (Chrome 11+) */ 
+  background-image: -webkit-radial-gradient(center, circle farthest-corner, #81BEF9 0%, #7AB2E7 100%);
+  /* W3C Markup, IE10 Release Preview */ 
+  background-image: radial-gradient(circle farthest-corner at center, #81BEF9 0%, #7AB2E7 100%);
+  height: 100%;
+  border: 20px solid #fff;
+  margin-top: 40px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  min-width: 975px;
+}
+
+.iphone{
+  width: 180px;
+  height: 302px;
+  z-index: 0;
+  position: absolute;
+  background-image: url("../images/iphone.png");
+  left: 100px;
+  top: 210px;
+}
+
+.spin_to_win {
+  width: 330px;
+  height: 71px;
+  background-image: url("../images/spintowin_text.png");
+  position: absolute;
+  z-index: 0;
+  left: 270px;
+  top: 230px;
+}
+
+.ipod {
+  width: 212px;
+  height: 203px;
+  background-image: url("../images/ipod.png");
+  position: absolute;
+  z-index: 0;
+  left:550px;
+  top:265px;
+}
+.cta_arrow {
+  width: 371px;
+  height: 148px;
+  background-image: url("../images/cta_with_arrow.png");
+  position: absolute;
+  z-index: 0;
+  left:600px;
+  top:175px;
+}
+.header_canvas {
+  height: 100px;
+}
+.how_to_play{
+  float:right;
+  padding-top: 50px;
+  text-align: center;
+  width:300px;
+}
+.spins_left {
+  font-size: 42px;
+  font-weight: bold;
+  width: 100%;
+  height: 56px;
+}
+.spins_left .count {
+  border:2px solid red;
+  background-color: #fff;
+  width: 40px;
+  height: 47px;
+  display: inline-block;
+  margin-left: -15px;
+}
+.inner_game_container {
+  height: 401px;
+}
+.spins_left_text {
+  font-size: 26px;
+  color: #fff;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4); 
+}
+
+.how_to_play_text {
+  font-size: 26px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.how_to_play_steps {
+  color: #0e4079;
+  text-align: left;
+  text-shadow: none; 
+}
+
+.points_1 {
+  width:32px;
+  height:32px;
+  background-image: url("../images/numbers.png");
+  background-position: 0px 0px;
+  float: left;
+  margin-right:10px;
+}
+
+.points_2 {
+  width:32px;
+  height:32px;
+  background-image: url("../images/numbers.png");
+  background-position: 0px 64px;
+  float:left;
+  margin-right:10px;
+}
+.points_3 {
+  width:32px;
+  height:32px;
+  background-image: url("../images/numbers.png");
+  background-position: 0px 32px;
+  float:left;
+  margin-right:10px;
+}
+
+.how_to_play_points .steps {
+  margin-bottom: 20px;
+  height:20px;
+}
+
+
