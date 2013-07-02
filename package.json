@@ -16,5 +16,8 @@
     "connect-mongo": "*",
     "MD5": "*",
     "express-ejs-layouts": "0.3.1"
-  }
+  },
+  "engines": {
+	  "node": "0.10.4",
+	  "npm": "1.2.18"
 }
