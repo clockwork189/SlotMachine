@@ -10,7 +10,6 @@ lib-cov
 *.swp
 
 .sass-cache
-lib
 pids
 logs
 results
