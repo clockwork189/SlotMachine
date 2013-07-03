@@ -19,7 +19,6 @@ exports.login = function(req, res){
  */
 exports.index = function(req, res){
 	GameSettings.findSettings(function(err, game_settings) {
-		console.log(game_settings);
 		res.render('admin/index.html', { title: 'Spin To Win: Administrator', settings: game_settings[0] });
 	});
 };
@@ -62,7 +61,6 @@ exports.add = function (req, res) {
 			});
 		});
 	});
-
 };
 /*
  * POST Update Available Prizes

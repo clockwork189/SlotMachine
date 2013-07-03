@@ -15,7 +15,11 @@
     "crypto": "*",
     "connect-mongo": "*",
     "MD5": "*",
-    "express-ejs-layouts": "0.3.1"
+    "express-ejs-layouts": "0.3.1",
+    "passport": "*",
+    "passport-facebook": "*",
+    "passport-twitter": "*",
+    "passport-google-oauth": "*"
   },
   "engines": {
 	  "node": "0.10.4",

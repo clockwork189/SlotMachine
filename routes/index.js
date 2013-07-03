@@ -10,3 +10,6 @@ exports.index = function(req, res){
 exports.privacy = function(req, res){
   res.render('privacy.html', { title: 'Spin To Win: Privacy Policy' });
 };
+exports.earnmorespins = function(req, res){
+  res.render('earnmorespins.html', { title: 'Spin To Win: Earn More Spins' });
+};

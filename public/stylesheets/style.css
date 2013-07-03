@@ -198,6 +198,9 @@ a {
 .inner_game_container {
   height: 401px;
 }
+.game_container {
+  height: 600px;
+}
 .spins_left_text {
   font-size: 26px;
   color: #fff;
@@ -265,37 +268,37 @@ a {
 .social_signups  div{
   display: inline-block;
 }
-.social_signups > .facebook {
+.large_facebook {
   width: 135px;
   height: 36px;
   background-image: url("../images/game_buttons/facebook_big_button.png");
   cursor:pointer;
 }
-.social_signups > .facebook:hover {
+.large_facebook:hover {
   width: 135px;
   height: 36px;
   background-image: url("../images/game_buttons/facebook_big_button_hover.png");
   cursor:pointer;
 }
-.social_signups > .twitter {
+.large_twitter {
   width: 135px;
   height: 36px;
   background-image: url("../images/game_buttons/twitter_big_button.png");
   cursor:pointer;
 }
-.social_signups > .twitter:hover {
+.large_twitter:hover {
   width: 135px;
   height: 36px;
   background-image: url("../images/game_buttons/twitter_big_button_hover.png");
   cursor:pointer;
 }
-.social_signups > .googleplus {
+.large_googleplus {
   width: 135px;
   height: 36px;
   background-image: url("../images/game_buttons/google_big_button.png");
   cursor:pointer;
 }
-.social_signups > .googleplus:hover {
+.large_googleplus:hover {
   width: 135px;
   height: 36px;
   background-image: url("../images/game_buttons/google_big_button_hover.png");
@@ -320,4 +323,52 @@ a {
   border: 0px;
   background-repeat: no-repeat;
   background-color: #fff;
+}
+.bottom_banner {
+  width: 839px;
+  height: 96px;
+  margin: 0 auto;
+  background-image: url("../images/home_bottom_banner.png"); 
+  background-repeat: no-repeat;
+}
+.earnmore {
+  text-shadow: none;
+  margin-top:80px;
+}
+.earnmore > .box {
+  -moz-box-shadow:    inset 0 0 10px #000000;
+  -webkit-box-shadow: inset 0 0 10px #000000;
+  box-shadow:         inset 0 0 10px #000000;
+  -moz-box-shadow:    3px 3px 5px 2px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 2px #ccc;
+  box-shadow:         3px 3px 5px 2px #ccc;
+
+  moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+
+  padding:10px;
+  background-color: #fff;
+}
+.gray_text {
+  color: #828282;
+  font-weight: 100;
+}
+
+.gray_box {
+  moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #e6e6e6; 
+  color: #232323;
+  padding: 10px;
+}
+.highlight {
+  color: #eb4823;
+}
+
+.large {
+  font-size: 18px;
 }

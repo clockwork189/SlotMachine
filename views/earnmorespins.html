@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<div class="navbar navbar-inverse navbar-fixed-top">
+	    <div class="navbar-inner">
+	        <div class="container">
+				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+	          	</button>
+	          	<a class="brand" href="/"><img src="/images/logo.png" style="width: 170px;" /></a>
+	          	<div class="nav-collapse collapse">
+		            <ul class="nav" style="float:right;">
+						<li><a href="#signup" data-toggle="modal">Sign Up</a></li>
+						<li><a href="#login" data-toggle="modal">Login</a></li>
+		            </ul>
+	          	</div><!--/.nav-collapse -->
+	        </div>
+	    </div>
+	</div>
+    <div class="container earnmore">
+    	<div class="box">
+			<div class="row">
+				<div class="span8"><h1>Earn More Free Spins</h1></div>
+				<div class="span3">
+					<div class="spins_left">
+						<div class="count">0</div>
+						<div class="count">0</div>
+						<div class="count">0</div>
+						<div class="count">0</div>
+					</div>
+				</div>
+			</div>
+			<p><span class="gray_text">Are you hungry for more chances to win cool stuff? Perform any of the actions listed below and earn more free spins. </span></p>
+			<div class="gray_box">
+				So far you have earned <span class="highlight">xxx</span> free bonus spins
+			</div>
+		</div><br/><br/>
+
+		<div class="box">
+			<h2>Like us on Facebook</h2>
+			<p>Like us on facebook and earn <span class="highlight large">10 spins.</span></p>
+			<div class="fb-like" data-href="https://www.facebook.com/thestorecom" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="arial"></div><br/>
+			<div class="gray_box">
+				You liked us on facebook and earned <span class="highlight">10 spins</span>
+			</div>
+		</div><br/><br/>
+
+		<div class="box">
+			<h2>Invite Friends</h2>
+			<p>Invite your friends and earn <span class="highlight large">5 spins  </span> every time one of them registers to play.</p>
+			<div>
+				<p style="float:left;">Invite Friends From: </p>
+				<a href="/auth/facebook"><div style="float:left;" class="large_facebook"></div></a>
+				<a href="/auth/twitter"><div style="float:left;" class="large_twitter"></div></a>
+				<a href="/auth/google"><div style="float:left;" class="large_googleplus"></div></a>
+			</div><br/><br/>
+			<p><span class="gray_text">Your email and contact lists are kept completely private. We will not send emails to your contacts without your consent. <a href="/privacy">Privacy Policy</a></span></p>
+			<div class="gray_box">
+				So far, <span class="highlight">0 people</span> have signed up from your invitation earning you <span class="highlight">0 spins</span>
+			</div>
+		</div><br/><br/>
+		<div class="box">
+			<h2>Product Newsletters</h2>
+			<p>Sign up to our daily or weekly product newsletter and earn more<span class="highlight large"> free spins.</span></p>
+			
+		</div><br/><br/>
+
+		
+	</div> <!-- /container -->
+	<div id="fb-root"></div>
+	<footer>
+      	<div class="container">
+        	<div class="row">
+        		<div class="span8">Copyright © 2013 TheStore.com Inc. All rights reserved.</div>
+        		<div class="span4">Official Rules  |  Disclaimers  |  Privacy Policy</div>
+        	</div>
+      	</div>
+    </footer>
+<script>	
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=141114962758351";
+			fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+<script src="javascripts/app.js"></script>
+{% endblock %}
