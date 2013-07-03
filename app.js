@@ -6,6 +6,7 @@
 var express = require('express'),
     routes = require('./routes'),
     user = require('./routes/user'),
+    admin = require('./routes/admin'),
     http = require('http'),
     swig = require('swig'),
     cons = require("consolidate"),
@@ -51,7 +52,8 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  //app.use(express.session({ store: new mongoStore({db: app.set('db-name')}), secret: 'topsecret' }));
+  // app.use(express.session({ store: new mongoStore({db: app.set('db-name')}), secret: 'topsecret' }));
+  app.use(express.session({ store: new mongoStore({url: 'mongodb://rooster:b4ehuSephequ7r@ds031978.mongolab.com:31978/slotmachine_1/sessions'}), secret: 'topsecret' }));
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(app.router);
 });
@@ -62,7 +64,11 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/privacy', routes.privacy);
-app.get('/users', user.list);
+app.get('/admin/login', admin.login);
+app.get('/admin/index', admin.index);
+app.get('/admin/add', admin.add);
+app.post('/admin/auth', admin.auth);
+app.post('/admin/update/prizes/available', admin.update_available_prizes);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

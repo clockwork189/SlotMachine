@@ -1,6 +1,5 @@
 body {
   background-color: #eff0f4;
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4); 
 }
@@ -74,7 +73,10 @@ a {
 .navbar-inverse .nav .active>a, .navbar-inverse .nav .active>a:hover {
   background-color: #bebebe;
 }
-
+.navbar-inverse .nav li a, .navbar-inverse .nav li a:hover {
+  color: #000;
+  text-shadow: none;
+}
 .header-cta {
   color: #fff;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4); 
@@ -102,6 +104,8 @@ a {
 }
 
 .main_container {
+  margin:50px;
+  margin-top:100px;
   -moz-box-shadow:    inset 0 0 10px #000000;
    -webkit-box-shadow: inset 0 0 10px #000000;
    box-shadow:         inset 0 0 10px #000000;
@@ -123,7 +127,6 @@ a {
   background-image: radial-gradient(circle farthest-corner at center, #81BEF9 0%, #7AB2E7 100%);
   height: 100%;
   border: 20px solid #fff;
-  margin-top: 40px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   -khtml-border-radius: 5px;
@@ -138,7 +141,7 @@ a {
   position: absolute;
   background-image: url("../images/iphone.png");
   left: 100px;
-  top: 210px;
+  top: 170px;
 }
 
 .spin_to_win {
@@ -148,7 +151,7 @@ a {
   position: absolute;
   z-index: 0;
   left: 270px;
-  top: 230px;
+  top: 180px;
 }
 
 .ipod {
@@ -158,7 +161,7 @@ a {
   position: absolute;
   z-index: 0;
   left:550px;
-  top:265px;
+  top:215px;
 }
 .cta_arrow {
   width: 371px;
@@ -167,7 +170,7 @@ a {
   position: absolute;
   z-index: 0;
   left:600px;
-  top:175px;
+  top:135px;
 }
 .header_canvas {
   height: 100px;
@@ -244,4 +247,77 @@ a {
   height:20px;
 }
 
+.admin {
+  text-shadow: none;
+}
+.admin > .prize {
+  margin-bottom: 10px;
+}
+.admin > form > .prize > .span2 {
+  text-align: center;
+}
+.admin > form > .prize > .span2 > input {
+  width:80px;
+}
+.social_signups {
+  text-align: center;
+}
+.social_signups  div{
+  display: inline-block;
+}
+.social_signups > .facebook {
+  width: 135px;
+  height: 36px;
+  background-image: url("../images/game_buttons/facebook_big_button.png");
+  cursor:pointer;
+}
+.social_signups > .facebook:hover {
+  width: 135px;
+  height: 36px;
+  background-image: url("../images/game_buttons/facebook_big_button_hover.png");
+  cursor:pointer;
+}
+.social_signups > .twitter {
+  width: 135px;
+  height: 36px;
+  background-image: url("../images/game_buttons/twitter_big_button.png");
+  cursor:pointer;
+}
+.social_signups > .twitter:hover {
+  width: 135px;
+  height: 36px;
+  background-image: url("../images/game_buttons/twitter_big_button_hover.png");
+  cursor:pointer;
+}
+.social_signups > .googleplus {
+  width: 135px;
+  height: 36px;
+  background-image: url("../images/game_buttons/google_big_button.png");
+  cursor:pointer;
+}
+.social_signups > .googleplus:hover {
+  width: 135px;
+  height: 36px;
+  background-image: url("../images/game_buttons/google_big_button_hover.png");
+  cursor:pointer;
+}
 
+.modalForm input {
+  width: 90%;
+}
+.modalForm .modalSubmit {
+  width: 139px;
+  height: 39px;
+  background-image: url("../images/game_buttons/submit_button.png");
+  border: 0px;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}
+.modalSubmit:hover {
+  width: 139px;
+  height: 39px;
+  background-image: url("../images/game_buttons/submit_button_hover.png");
+  border: 0px;
+  background-repeat: no-repeat;
+  background-color: #fff;
+}

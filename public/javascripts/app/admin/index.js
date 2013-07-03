@@ -1,0 +1,1 @@
+$('input[name="promo_end_date"]').datepicker();

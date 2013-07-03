@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="navbar">
+  	<div class="navbar-inner">
+    	<a class="brand" href="#"><img src="/images/logo.png" style="width: 170px;" /></a>
+    	<ul class="nav" style="float:right;">
+      		<li class="active"><a href="#">Home</a></li>
+      		<li><a href="#">View Users</a></li>
+      		<li><a href="#">View Winners</a></li>
+      		<li><a href="#">View Prizes Awarded</a></li>
+      		<li><a href="#">IP Blocklist</a></li>
+    	</ul>
+  	</div>
+</div>
+<div class="container admin">
+	<h1>Administrator Section</h1>
+	
+	<div class="row">
+		<div class="span12"><strong>Number Of Prizes Available</strong></div>
+	</div><br/>
+	<form method="post" action="/admin/update/prizes/available">
+		<div class="row prize">
+			<div class="span2">
+				<img src="/javascripts/img/tile_1.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_1" value="{{ parseInt(settings.prizes.prize_1, 10) }}"/>
+			</div>
+			<div class="span2"> 
+				<img src="/javascripts/img/tile_2.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_2" value="{{ parseInt(settings.prizes.prize_2, 10) }}"/>
+			</div>
+			<div class="span2">
+				<img src="/javascripts/img/tile_3.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_3" value="{{ parseInt(settings.prizes.prize_3, 10) }}"/>
+			</div>
+			<div class="span2">
+				<img src="/javascripts/img/tile_4.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_4" value="{{ parseInt(settings.prizes.prize_4, 10) }}"/>
+			</div>
+			<div class="span2">
+				<img src="/javascripts/img/tile_5.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_5" value="{{ parseInt(settings.prizes.prize_5, 10) }}"/>
+			</div>
+			<div class="span2">
+				<img src="/javascripts/img/tile_6.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_6" value="{{ parseInt(settings.prizes.prize_6, 10) }}"/>
+			</div>
+		</div>
+		<div class="row prize">
+			<div class="span2">
+				<img src="/javascripts/img/tile_7.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_7" value="{{ parseInt(settings.prizes.prize_7, 10) }}"/>
+			</div>
+			<div class="span2"> 
+				<img src="/javascripts/img/tile_8.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_8" value="{{ parseInt(settings.prizes.prize_8, 10) }}"/>
+			</div>
+			<div class="span2">
+				<img src="/javascripts/img/tile_9.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_9" value="{{ parseInt(settings.prizes.prize_9, 10) }}"/>
+			</div>
+			<div class="span2">
+				<img src="/javascripts/img/tile_10.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_10" value="{{ parseInt(settings.prizes.prize_10, 10) }}"/>
+			</div>
+			<div class="span2">
+				<img src="/javascripts/img/tile_11.png" style="width:100px;"/><br/>
+				<input type="text" name="prize_11" value="{{ parseInt(settings.prizes.prize_11, 10) }}"/>
+			</div>
+			<div class="span2">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Maximum Number of Prizes Awarded Per Day:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="max_prizes_awarded_per_day" value="{{ parseInt(settings.max_number_prizes_per_day, 10) }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Number of Spins Per User:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="num_spins_per_user" value="{{ parseInt(settings.number_spins_per_user, 10) }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Number of Spins Per Share:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="num_spins_per_share" value="{{ parseInt(settings.number_spins_per_share, 10) }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Promotion End Date:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="promo_end_date" value="{{ settings.promotion_end_date }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				
+			</div>
+			<div class="span3">
+				<input type="submit" class="btn btn-primary" value="Save Changes"/>
+			</div>
+			<div class="span4">
+			</div>
+		</div>
+	</form>
+</div>
+<script src="/javascripts/app/admin/index.js"></script>
+{% endblock content %}
