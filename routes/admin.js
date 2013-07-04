@@ -3,6 +3,7 @@ var hash = require('./../library/Password').hash;
 var md5 = require("MD5");
 var Administrators = require("./../models/Administrators.js");
 var GameSettings = require("./../models/GameSettings.js");
+var Users = require("./../models/Users.js");
 /*
  * GET home page.
  */
@@ -24,10 +25,19 @@ exports.index = function(req, res){
 };
 
 /*
+ * GET Admin Dashboard
+ */
+exports.viewUsers = function(req, res){
+	Users.findAll(function(err, users) {
+		console.log(users);
+		res.render('admin/users.html', { title: 'Spin To Win: Administrator', users: users });
+	});
+};
+
+/*
  * POST Authenticate User
  */
 exports.auth = function(req, res){
-	console.log("Here");
 	authenticate(req.body.email, req.body.password, function(err, administrator){
 		console.log("Valid Admin");
 		if (administrator) {
@@ -83,6 +93,7 @@ exports.update_available_prizes = function (req, res) {
 		max_number_prizes_per_day: req.body.max_prizes_awarded_per_day,
 		number_spins_per_user: req.body.num_spins_per_user,
 		number_spins_per_share: req.body.num_spins_per_share,
+		number_spins_per_like: req.body.num_spins_like,
 		promotion_end_date: req.body.promo_end_date
 	};
 
@@ -100,13 +111,4 @@ function authenticate(email, pass, fn) {
 			fn(new Error('invalid password'));
 		});
 	});
-}
-
-function restrict(req, res, next) {
-  if (req.session.administrator) {
-	next();
-  } else {
-	req.session.error = 'Access denied!';
-	res.redirect('/admin/login');
-  }
 }

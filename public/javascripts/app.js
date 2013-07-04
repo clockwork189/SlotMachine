@@ -158,9 +158,9 @@ var Tile = function (x, y, id, img) {
     this.image = img;
 };
 
-var Game = function () {
+var Game = function (kwargs) {
     var self = {};
-    var numPlays = 3;
+    var numPlays = 0;
     var isRunning = false;
     var awardPrize = false;
     var slots;
@@ -177,10 +177,14 @@ var Game = function () {
     };
     var listenToPlayButton = function () {
         $("#play").click(function() {
-            if(slots.isSpinning == false) {
-                var res = calculatePrize();
-                console.log(res);
-                slots.spin(res);
+            if(numPlays > 0) {
+                if(slots.isSpinning === false) {
+                    var res = calculatePrize();
+                    numPlays = numPlays--;
+                    slots.spin(res);
+                }
+            } else {
+                $('#nospinsleft').modal();
             }
         });
     };
@@ -237,6 +241,3 @@ window.requestAnimFrame = (function(){
             window.setTimeout(callback, 1000 / 60);
         };
 })();
-
-var game = new Game();
-game.init();

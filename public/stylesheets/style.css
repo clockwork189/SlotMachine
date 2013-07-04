@@ -141,7 +141,7 @@ a {
   position: absolute;
   background-image: url("../images/iphone.png");
   left: 100px;
-  top: 170px;
+  top: 240px;
 }
 
 .spin_to_win {
@@ -151,7 +151,7 @@ a {
   position: absolute;
   z-index: 0;
   left: 270px;
-  top: 180px;
+  top: 240px;
 }
 
 .ipod {
@@ -161,16 +161,16 @@ a {
   position: absolute;
   z-index: 0;
   left:550px;
-  top:215px;
+  top:285px;
 }
 .cta_arrow {
   width: 371px;
-  height: 148px;
+  height: 147px;
   background-image: url("../images/cta_with_arrow.png");
   position: absolute;
   z-index: 0;
   left:600px;
-  top:135px;
+  top:200px;
 }
 .header_canvas {
   height: 100px;

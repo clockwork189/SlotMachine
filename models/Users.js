@@ -12,6 +12,18 @@ exports.findByEmail = function(email, callback) {
 		});
 	});
 };
+exports.findAll = function(callback) {
+	console.log('Retrieving all users');
+	SPMongo.db.collection('users', function(err, collection) {
+		collection.find().toArray(function(err, users) {
+			if(err) {
+				callback(err);
+			} else {
+				callback(null, users);
+			}
+		});
+	});
+};
 
 exports.addUser = function(user, callback) {
 	console.log('Adding user: ' + JSON.stringify(user));

@@ -9,12 +9,16 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
           	</button>
-          	<a class="brand" href="#"><img src="/images/logo.png" style="width: 170px;" /></a>
+          	<a class="brand" href="/"><img src="/images/logo.png" style="width: 170px;" /></a>
           	<div class="nav-collapse collapse">
+          		{% if user %}
+					<div style="float:right; text-shadow:none; margin-top:20px;">Hi {{user.full_name}} <a href="/logout">Logout</a></div>
+          		{% else %}
 	            <ul class="nav" style="float:right;">
-					<li><a href="#signup" data-toggle="modal">Sign Up</a></li>
-					<li><a href="#login" data-toggle="modal">Login</a></li>
+					<li><a href="#signup" data-toggle="modal"><span class="icon-pencil"></span> Sign Up</a></li>
+					<li><a href="#login" data-toggle="modal"><span class="icon-user"></span> Login</a></li>
 	            </ul>
+	            {% endif %}
           	</div><!--/.nav-collapse -->
         </div>
     </div>
@@ -50,7 +54,7 @@
 					<div class="count">0</div>
 				</div>
 				<div class="spins_left_text">SPINS LEFT</div>
-				<button class="btn btn-inverse btn-large">Get More Spins</button><br/><br/>
+				<a href="/earnmorespins" class="btn btn-inverse btn-large">Get More Spins</a><br/><br/>
 				<div class="how_to_play_text">
 					HOW TO PLAY
 				</div>
@@ -86,32 +90,44 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3>Sign Up Using:</h3><br/>
     <div class="social_signups">
-		<a href="#" onclick="facebookAuth()"><div class="large_facebook"></div></a>
-		<a href="#" onclick="twitterAuth()"><div class="large_twitter"></div></a>
-		<a href="#" onclick="googleAuth()"><div class="large_googleplus"></div></a>
+		<a href="#" onclick="facebookAuth()" data-dismiss="modal"><div class="large_facebook"></div></a>
+		<a href="#" onclick="twitterAuth()" data-dismiss="modal"><div class="large_twitter"></div></a>
+		<a href="#" onclick="googleAuth()" data-dismiss="modal"><div class="large_googleplus"></div></a>
     </div>
   </div>
   <div class="modal-body">
     <p>or Register a new account</p>
-    <form class="modalForm">
+    <form class="modalForm" id="signupForm" method="post" action="/add/new/user">
 		<input type="text" placeholder="Username" name="username" /><br/><br/>
 		<input type="text" placeholder="Full Name" name="fullname" /><br/><br/>
-		<input type="text" placeholder="Email Address" name="email_address" /><br/><br/>
+		<input type="text" placeholder="Email Address" name="email" /><br/><br/>
 		<input type="password" placeholder="Password" name="password" /><br/><br/>
 		<input type="password" placeholder="Confirm Password" name="confirm_password" /><br/><br/>
-		<input type="button" class="modalSubmit"/>
+		<input type="button" class="modalSubmit" id="signup_button"/>
     </form>
     <a href="#login" data-toggle="modal" data-dismiss="modal"  style="float:right; color:#000;">Login</a>
   </div>
 </div>
 
+<div id="nospinsleft" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="width:496px;">
+  	<div class="modal-body">
+  		<div class="row">
+			<div class="span4"><img src="/images/sadface.png"/></div>
+			<div class="span2"><img src="/images/zerospins.png"/></div>
+  		</div>
+    	<h3>Oh no, looks like you are out of spins!</h3>
+    	<p>The good news is we have plenty of ways you can earn more!</p>
+    	<p><br/></p>
+    	<a href="/earnmorespins" class="btn btn-success">Learn How</a>
+  	</div>
+    <img src="/images/bottom_modal.png" />
+</div>
 <!-- Modal -->
 <div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
   	<div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     	<h3>Sign In Using:</h3><br/>
 	    <div class="social_signups">
-    		
 			<a href="/auth/facebook"><div class="large_facebook"></div></a>
 			<a href="/auth/twitter"><div class="large_twitter"></div></a>
 			<a href="/auth/google"><div class="large_googleplus"></div></a>
@@ -119,14 +135,15 @@
   	</div>
   	<div class="modal-body">
     	<p>or Sign in with your username/email address</p>
-    	<form class="modalForm">
-			<input type="text" placeholder="Username Or Email Address" name="login" /><br/><br/>
+    	<form class="modalForm" id="signinform" method="post" action="/login/user">
+			<input type="text" placeholder="Username Or Email Address" name="email" /><br/><br/>
 			<input type="password" placeholder="Password" name="password" /><br/><br/>
+			<input type="button" class="modalSubmit" id="signin_button"/>
 		</form>
-  	</div>
-  	<div class="modal-footer">
-	    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	    <button class="btn btn-primary">Save changes</button>
+		<div>
+			<a href="#" style="float:left; color:#000;  text-shadow: none;">Forgot password?</a>
+			<a href="#signup" data-toggle="modal" data-dismiss="modal" style="float:right; color:#000; text-shadow: none;">Register New Account</a>
+		</div>
   	</div>
 </div>
 <div id="fb-root"></div>
@@ -140,4 +157,5 @@
 	}(document, 'script', 'facebook-jssdk'));
 	</script>
 <script src="javascripts/app.js"></script>
+<script src="javascripts/skeleton.js"></script>
 {% endblock %}
