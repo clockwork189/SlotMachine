@@ -228,7 +228,7 @@ var Game = function (kwargs) {
                         data: user,
                         dataType: "json",
                         success:function(result){
-                            console.log(result);
+
                         }
                     });
                     slots.spin(res);
@@ -266,6 +266,19 @@ var Game = function (kwargs) {
         if(result[0] === result[1] === result[2]) {
             if(slot.isSpinning ===false) {
                 $("#youwon").modal();
+                var data = {
+                    usr: user,
+                    prize: result[0]
+                };
+                $.ajax({
+                    type: "POST",
+                    url:"/post/add/winner",
+                    data: data,
+                    dataType: "json",
+                    success:function(result){
+
+                    }
+                });
             }
         }
     };

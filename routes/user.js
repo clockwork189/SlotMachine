@@ -3,6 +3,7 @@ var hash = require('./../library/Password').hash;
 var md5 = require("MD5");
 var Users = require("./../models/Users.js");
 var GameSettings = require("./../models/GameSettings.js");
+var Winners = require("./../models/Winners.js");
 /*
     Authentication Methods:
     Facebook,
@@ -107,6 +108,19 @@ exports.updatePlayer = function(req, res) {
     var user = req.body;
     Users.updateUser(user, function(err, result) {
         req.session.user = result;
+        res.json({success: "true"});
+    });
+};
+exports.addWinner = function(req, res) {
+    var user = req.body.usr;
+    var prize = req.body.prize;
+    var winnerObj = {
+        user: user,
+        prize: "tile_" + prize,
+        prize_id: prize
+    };
+    Winners.addWinner(winnerObj, function(err, result) {
+        console.log(result);
         res.json({success: "true"});
     });
 };

@@ -140,8 +140,12 @@ app.get('/privacy', routes.privacy);
 app.get('/earnmorespins', routes.earnmorespins);
 app.get('/admin/login', admin.login);
 app.get('/admin/index', restrict, admin.index);
-app.get('/admin/add', restrict, admin.add);
+app.get('/admin/add', admin.add);
 app.get('/admin/view/users', restrict, admin.viewUsers);
+app.get('/admin/view/winners', restrict, admin.viewWinners);
+app.get('/admin/view/prizes', restrict, admin.viewPrizes);
+
+app.post('/post/add/winner', user.addWinner);
 app.post('/post/update/player', user.updatePlayer);
 app.post('/post/game/params', user.getGameParams);
 app.post('/add/new/user', user.create);

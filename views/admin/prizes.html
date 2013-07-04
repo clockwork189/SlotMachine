@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="navbar">
+  	<div class="navbar-inner">
+    	<a class="brand" href="/admin/index"><img src="/images/logo.png" style="width: 170px;" /></a>
+    	<ul class="nav" style="float:right;">
+      		<li><a href="/admin/index">Home</a></li>
+      		<li><a href="/admin/view/users">View Users</a></li>
+      		<li><a href="/admin/view/winners">View Winners</a></li>
+          <li class="active"><a href="/admin/view/prizes">View Prizes Awarded</a></li>
+    	</ul>
+  	</div>
+</div>
+<div class="container admin">
+	<h1>View Prizes</h1>
+  <table>
+    <tr><th style="width:250px;">Prize</th><th style="width:250px;">Count</th></tr>
+    {% for prize in prizes %}
+    <tr>
+      <td><img src="/javascripts/img/{{prize.img}}.png" style="width:100px;"/></td>
+      <td>{{ prize.count }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock content %}

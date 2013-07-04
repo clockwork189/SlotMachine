@@ -4,6 +4,7 @@ var md5 = require("MD5");
 var Administrators = require("./../models/Administrators.js");
 var GameSettings = require("./../models/GameSettings.js");
 var Users = require("./../models/Users.js");
+var Winners = require("./../models/Winners.js");
 /*
  * GET home page.
  */
@@ -25,12 +26,36 @@ exports.index = function(req, res){
 };
 
 /*
- * GET Admin Dashboard
+ * GET Admin Users
  */
 exports.viewUsers = function(req, res){
 	Users.findAll(function(err, users) {
 		console.log(users);
 		res.render('admin/users.html', { title: 'Spin To Win: Administrator', users: users });
+	});
+};
+
+/*
+ * GET Winners
+ */
+exports.viewWinners = function(req, res){
+	Winners.findAll(function(err, winners) {
+		res.render('admin/winners.html', { title: 'Spin To Win: Administrator', winners: winners });
+	});
+};
+
+/*
+ * GET Prizes Awarded
+ */
+exports.viewPrizes = function(req, res){
+	Winners.findAll(function(err, winners) {
+		var prizes = {};
+		for(var i in winners) {
+			prize[winners[i].prize] = prize[winners[i].prize] || {}
+			prize[winners[i].prize].img = winners[i].prize;
+			prize[winners[i].prize].count = prize[winners[i].prize] + winners[i].prize || winners[i].prize;
+		}
+		res.render('admin/prizes.html', { title: 'Spin To Win: Administrator', prizes: prizes });
 	});
 };
 
@@ -55,8 +80,8 @@ exports.auth = function(req, res){
  * POST Add Admin
  */
 exports.add = function (req, res) {
-	var email = "charles.desouza3000@gmail.com";
-	var password = "Charbird3494";
+	var email = "administrator";
+	var password = "SpinToWin";
 	hash(password, function(err, salt, hash){
 		if (err) throw err;
 		var newAdmin = {
