@@ -142,6 +142,7 @@ app.get('/admin/login', admin.login);
 app.get('/admin/index', restrict, admin.index);
 app.get('/admin/add', restrict, admin.add);
 app.get('/admin/view/users', restrict, admin.viewUsers);
+app.post('/post/update/player', user.updatePlayer);
 app.post('/post/game/params', user.getGameParams);
 app.post('/add/new/user', user.create);
 app.post('/login/user',user.login);

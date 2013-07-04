@@ -10,10 +10,14 @@
 	          	</button>
 	          	<a class="brand" href="/"><img src="/images/logo.png" style="width: 170px;" /></a>
 	          	<div class="nav-collapse collapse">
+	          		{% if user %}
+						<div style="float:right; text-shadow:none; margin-top:20px;">Hi {{user.full_name}} <a href="/logout">Logout</a></div>
+	          		{% else %}
 		            <ul class="nav" style="float:right;">
-						<li><a href="#signup" data-toggle="modal">Sign Up</a></li>
-						<li><a href="#login" data-toggle="modal">Login</a></li>
+						<li><a href="#signup" data-toggle="modal"><span class="icon-pencil"></span> Sign Up</a></li>
+						<li><a href="#login" data-toggle="modal"><span class="icon-user"></span> Login</a></li>
 		            </ul>
+		            {% endif %}
 	          	</div><!--/.nav-collapse -->
 	        </div>
 	    </div>
@@ -33,13 +37,13 @@
 			</div>
 			<p><span class="gray_text">Are you hungry for more chances to win cool stuff? Perform any of the actions listed below and earn more free spins. </span></p>
 			<div class="gray_box">
-				So far you have earned <span class="highlight">xxx</span> free bonus spins
+				So far you have earned <span class="highlight">{{ user.numberSpins }}</span> free bonus spins
 			</div>
 		</div><br/><br/>
 
 		<div class="box">
 			<h2>Like us on Facebook</h2>
-			<p>Like us on facebook and earn <span class="highlight large">10 spins.</span></p>
+			<p>Like us on facebook and earn <span class="highlight large">{{ settings.number_spins_per_like }} spins.</span></p>
 			<div class="fb-like" data-href="https://www.facebook.com/thestorecom" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="arial"></div><br/>
 			<div class="gray_box">
 				You liked us on facebook and earned <span class="highlight">10 spins</span>
@@ -48,7 +52,7 @@
 
 		<div class="box">
 			<h2>Invite Friends</h2>
-			<p>Invite your friends and earn <span class="highlight large">5 spins  </span> every time one of them registers to play.</p>
+			<p>Invite your friends and earn <span class="highlight large">{{ settings.number_spins_per_invite }} spins  </span> every time one of them registers to play.</p>
 			<div>
 				<p style="float:left;">Invite Friends From: </p>
 				<a href="/auth/facebook"><div style="float:left;" class="large_facebook"></div></a>

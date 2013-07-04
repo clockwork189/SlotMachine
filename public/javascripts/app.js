@@ -113,18 +113,12 @@ var Slots = function () {
                 if(delay < 0) 
                 if(delay === 0) {
                     self.isSpinning = false;
-                    checkWin();
                     startTime = 0;
                     delay = 300;
                 }
             }
         }
     };
-    var checkWin = function() {
-        if(result[0] == result[1] == result[2]) {
-            alert("You Win");
-        }
-    }
     var generateRandomTile = function (currId, min, max) {
         var rand = Math.round(Math.random() * (max - min) + min);
         if(currId === rand || currId === undefined) {
@@ -160,46 +154,89 @@ var Tile = function (x, y, id, img) {
 
 var Game = function (kwargs) {
     var self = {};
-    var numPlays = 0;
+    kwargs = kwargs || {};
+    var user = kwargs.user || {};
+    var settings = kwargs.settings || {};
+    var endDate = new Date(settings.promotion_end_date) || null;
+    var numPlays = parseInt(user.numberSpins, 10) || 0;
+    var prizes = settings.prizes || {};
+    var availablePrizesToday = settings.max_number_prizes_per_day || 0;
+    var awardedPrizes = 0;
     var isRunning = false;
     var awardPrize = false;
     var slots;
+    var result = [1, 2, 3];
+    var imageSources = {
+        tile_1: "javascripts/img/tile_1.png",
+        tile_2: "javascripts/img/tile_2.png",
+        tile_3: "javascripts/img/tile_3.png",
+        tile_4: "javascripts/img/tile_4.png",
+        tile_5: "javascripts/img/tile_5.png",
+        tile_6: "javascripts/img/tile_6.png",
+        tile_7: "javascripts/img/tile_7.png",
+        tile_8: "javascripts/img/tile_8.png",
+        tile_9: "javascripts/img/tile_9.png",
+        tile_10: "javascripts/img/tile_10.png",
+        tile_11: "javascripts/img/tile_11.png"
+    };
 
     self.init = function () {
         isRunning = true;
         initializeSlots();
         listenToPlayButton();
+        listenToEarnSpinsButton();
+        setSpins();
         loop();
     };
     var initializeSlots = function () {
         slots = new Slots();
         slots.init();
     };
+    var setSpins = function () {
+        var digits = numPlays.toString().split('');
+        for(var i=digits.length - 1; i >=0; i--) {
+            var spinsLeft = 3 - parseInt(i, 10);
+            $(".spins_left .count:eq(" + spinsLeft + ")").text(digits[i]);
+        }
+    };
+    var listenToEarnSpinsButton = function () {
+        $(".earnMoreSpins").click(function() {
+            if(kwargs.user === undefined) {
+                //alert("You must sign up or login to play");
+                $('#signup').modal();
+            } else {
+                window.location = "/earnmorespins";
+            }
+        });
+    };
     var listenToPlayButton = function () {
         $("#play").click(function() {
-            if(numPlays > 0) {
+            var today = new Date();
+            if(endDate < today){
+                $('#ended').modal();
+            } else if(kwargs.user === undefined) {
+                $('#signup').modal();
+            } else if(numPlays > 0) {
                 if(slots.isSpinning === false) {
                     var res = calculatePrize();
-                    numPlays = numPlays--;
+                    numPlays -= 1;
+                    user.numberSpins = numPlays;
+                    setSpins();
+                    $.ajax({
+                        type: "POST",
+                        url:"/post/update/player",
+                        data: user,
+                        dataType: "json",
+                        success:function(result){
+                            console.log(result);
+                        }
+                    });
                     slots.spin(res);
                 }
             } else {
                 $('#nospinsleft').modal();
             }
         });
-    };
-    var checkNumPlays = function () {
-        if(numPlays > 0) {
-
-        }
-        // Here we verify users have enough of plays remaining
-        // If available plays = num of user plays, then spin
-        // If not, then dont spin
-    };
-    var checkNumPrizesAwarded = function () {
-        // If Num Prizes awarded < available prizes then spin
-        // Else do not award prize
-        calculatePrize();
     };
     var calculatePrize = function() {
         var slotArray = [];
@@ -211,16 +248,26 @@ var Game = function (kwargs) {
     };
     var checkVictory = function (slot1, slot2, slot3) {
         if(slot1 === slot2 === slot3) {
-            if(awardPrize) {
-                // Person Won
-            } else {
+            var prize_won = prizes["prize_" + slot1];
+            if(awardedPrizes >= availablePrizesToday) {
                 calculatePrize();
             }
         }
+        result[0] = slot1;
+        result[1] = slot2;
+        result[2] = slot3;
+        didPlayerWin();
     };
     //A simple random generator
     var random = function (min, max) {
         return Math.round(Math.random() * (max - min) + min);
+    };
+    var didPlayerWin = function () {
+        if(result[0] === result[1] === result[2]) {
+            if(slot.isSpinning ===false) {
+                $("#youwon").modal();
+            }
+        }
     };
     var loop = function () {
         slots.drawBackground();

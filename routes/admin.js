@@ -94,7 +94,8 @@ exports.update_available_prizes = function (req, res) {
 		number_spins_per_user: req.body.num_spins_per_user,
 		number_spins_per_share: req.body.num_spins_per_share,
 		number_spins_per_like: req.body.num_spins_like,
-		promotion_end_date: req.body.promo_end_date
+		promotion_end_date: req.body.promo_end_date,
+		number_spins_per_invite: req.body.number_spins_per_invite
 	};
 
 	GameSettings.updateSettings(game_settings, function(result) {

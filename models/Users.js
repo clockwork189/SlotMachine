@@ -50,13 +50,20 @@ exports.addUser = function(user, callback) {
 
 exports.updateUser = function(user, callback) {
 	console.log('Updating user');
-	console.log(JSON.stringify(user));
 	SPMongo.db.collection('users', function(err, collection) {
-		collection.update({'email': user.email}, user, {safe:true}, function(err, result) {
+		user._id = collection.db.bson_serializer.ObjectID.createFromHexString(user._id);
+		collection.update({'_id': user._id}, user, {safe:true}, function(err, result) {
 			if(err) {
+				console.log("Error", err);
 				callback(err);
 			} else {
-				callback(null, result);
+				collection.findOne({'_id':user._id}, function(err, user) {
+					if(err) {
+						callback(err);
+					} else {
+						callback(null, user);
+					}
+				});
 			}
 		});
 	});

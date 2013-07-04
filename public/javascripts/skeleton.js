@@ -20,6 +20,11 @@ var Skeleton = function () {
             }
         });
     };
+    var openWinModal = function () {
+        $("#win_image").empty();
+        $("<img />").attr("src", "");
+        $('#youwon').modal();
+    };
     return self;
 };
 

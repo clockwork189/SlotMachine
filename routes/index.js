@@ -17,5 +17,13 @@ exports.privacy = function(req, res){
     res.render('privacy.html', { title: 'Spin To Win: Privacy Policy' });
 };
 exports.earnmorespins = function(req, res){
-    res.render('earnmorespins.html', { title: 'Spin To Win: Earn More Spins' });
+	GameSettings.findSettings(function(err, game_settings) {
+        var usr = undefined;
+        if(req.session.user !== undefined) {
+            usr = req.session.user[0];
+            res.render('earnmorespins.html', { title: 'Spin To Win: Earn More Spins', user: usr, settings: game_settings[0] });
+        } else {
+            res.redirect("/");
+        }
+    });
 };

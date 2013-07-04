@@ -81,7 +81,7 @@ exports.find = function(email, callback) {
  */
 exports.login = function(req, res){
     authenticate(req.body.email, req.body.password, function(err, user){
-        console.log("Valid User");
+        console.log("Valid User", user);
         if (user) {
             console.log("Legit User: ", user);
             var arr = [];
@@ -103,7 +103,13 @@ exports.getGameParams = function(req, res) {
         res.json({ settings: game_settings[0], user: usr });
     });
 };
-
+exports.updatePlayer = function(req, res) {
+    var user = req.body;
+    Users.updateUser(user, function(err, result) {
+        req.session.user = result;
+        res.json({success: "true"});
+    });
+};
 function authenticate(email, pass, fn) {
     if (!module.parent) console.log('authenticating %s:%s', email, pass);
         Users.findByEmail(email, function(err, user) {
