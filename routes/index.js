@@ -38,3 +38,9 @@ exports.getemail = function (req, res) {
         res.render('index.html', { title: 'Spin To Win', settings: game_settings[0], user: req.session.user, showAskEmail: true });
     });
 };
+
+exports.addReferral = function (req, res) {
+    var referrer = req.params.referralid;
+    req.session.referral = referrer;
+    res.redirect("/");
+};

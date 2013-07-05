@@ -56,10 +56,10 @@
 			<h2>Invite Friends</h2>
 			<p>Invite your friends and earn <span class="highlight large">{{ settings.number_spins_per_invite }} spins  </span> every time one of them registers to play.</p>
 			<div>
-				<p style="float:left;">Invite Friends From: </p><br/><br/>
+				<p style="float:left;">Invite Friends </p>
 				<a href="#" onclick="openSharer();"><div style="float:left;" class="large_facebook"></div></a>
-				<a href="#"><div style="float:left;" class="large_twitter"></div></a>
-				<a href="#"><div style="float:left;" class="large_googleplus"></div></a>
+				<!--<a href="#"><div style="float:left;" class="large_twitter"></div></a>
+				<a href="#"><div style="float:left;" class="large_googleplus"></div></a>-->
 			</div><br/><br/>
 			<p><span class="gray_text">Your email and contact lists are kept completely private. We will not send emails to your contacts without your consent. <a href="/privacy">Privacy Policy</a></span></p>
 			<div class="gray_box">
@@ -70,6 +70,11 @@
 			<h2>Referral Link</h2>
 			Post your referral link on your favorite websites, social networks or through email and receive <span class="highlight large">{{ settings.number_spins_per_invite }} spins  </span> free spins for every person who signs up through your link
 			<input type="text" disabled value="{{ shortenedURL }}" id="shortURL" /> 
+			<fb:share-button href="{{ shortenedURL }}" type="button"></fb:share-button>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="{{shortenedURL}}">Tweet</a>
+			<a href="https://plus.google.com/share?url={URL}" onclick="javascript:window.open({{shortenedURL}},
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" target="_blank"><img
+  src="https://www.gstatic.com/images/icons/gplus-32.png" alt="Share on Google+"/></a>
 			<!--<button class="btn btn-success copyurl">Copy URL</button>-->
 			<!--
 			<div class="gray_box">
@@ -87,6 +92,8 @@
         	</div>
       	</div>
     </footer>
+
+<script src="https://apis.google.com/js/plusone.js"></script>
 <script>	
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
@@ -96,6 +103,7 @@
 			fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
 </script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
 <script>
 $(".copyurl").click(function() {
@@ -105,17 +113,21 @@ function openSharer() {
 	// var url = "http://localhost:3000/referral/{{user.unique_identifier}}";
 	// window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),  'facebook-share-dialog', 'width=626,height=436'); 
 	// return false;
-	FB.ui({
-	  method: 'feed',
-	  redirect_uri: '/',
-	  link: 'https://developers.facebook.com/docs/reference/dialogs/',
-	  picture: '/images/logo.png',
-	  name: 'TheStore.com',
-	  caption: 'Spin to Win at TheStore.com',
-	  description: 'Spin to Win at TheStore.com'
-	}, function(response){
-		console.log(response);
+	FB.init({
+	appId:'376845965748399',
+	cookie:true,
+	status:true,
+	xfbml:true
 	});
+
+	FB.ui({
+		title: 'Spin To Win',
+		method: 'apprequests',
+		message: 'Come over and play Spin To Win at theStore.com {{ shortenedURL }}'
+	});
+	if (top.location!= self.location) {
+		top.location = self.location
+	}
 }
 </script>
 {% endblock %}

@@ -139,7 +139,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/referral/:referralid', routes.index); // Change this to the appropriate route
+app.get('/referral/:referralid', routes.addReferral); // Change this to the appropriate route
 app.get('/privacy', routes.privacy);
 app.get('/earnmorespins', routes.earnmorespins);
 app.get('/getemail', routes.getemail);
