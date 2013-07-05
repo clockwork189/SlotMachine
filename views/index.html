@@ -11,7 +11,7 @@
           	</button>
           	<a class="brand" href="/"><img src="/images/logo.png" style="width: 170px;" /></a>
           	<div class="nav-collapse collapse">
-          		{% if user %}
+          		{% if user.email %}
 					<div style="float:right; text-shadow:none; margin-top:20px;">Hi {{user.full_name}} <a href="/logout">Logout</a></div>
           		{% else %}
 	            <ul class="nav" style="float:right;">
@@ -98,7 +98,6 @@
   <div class="modal-body">
     <p>or Register a new account</p>
     <form class="modalForm" id="signupForm" method="post" action="/add/new/user">
-		<input type="text" placeholder="Username" name="username" /><br/><br/>
 		<input type="text" placeholder="Full Name" name="fullname" /><br/><br/>
 		<input type="text" placeholder="Email Address" name="email" /><br/><br/>
 		<input type="password" placeholder="Password" name="password" /><br/><br/>
@@ -114,15 +113,15 @@
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     	<h3>Sign In Using:</h3><br/>
 	    <div class="social_signups">
-			<a href="/auth/facebook"><div class="large_facebook"></div></a>
-			<a href="/auth/twitter"><div class="large_twitter"></div></a>
-			<a href="/auth/google"><div class="large_googleplus"></div></a>
+			<a href="#" onclick="facebookAuth()" data-dismiss="modal"><div class="large_facebook"></div></a>
+			<a href="#" onclick="twitterAuth()" data-dismiss="modal"><div class="large_twitter"></div></a>
+			<a href="#" onclick="googleAuth()" data-dismiss="modal"><div class="large_googleplus"></div></a>
 	    </div>
   	</div>
   	<div class="modal-body">
     	<p>or Sign in with your username/email address</p>
     	<form class="modalForm" id="signinform" method="post" action="/login/user">
-			<input type="text" placeholder="Username Or Email Address" name="email" /><br/><br/>
+			<input type="text" placeholder="Email Address" name="email" /><br/><br/>
 			<input type="password" placeholder="Password" name="password" /><br/><br/>
 			<input type="button" class="modalSubmit" id="signin_button"/>
 		</form>
@@ -161,8 +160,24 @@
   	</div>
     <img src="/images/bottom_modal.png" />
 </div>
+<!-- Modal -->
+<div id="showAskEmail" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+  	</div>
+  	<div class="modal-body">
+    	<p>Please Enter your Email Address to complete your Signup.</p>
+    	<form class="modalForm" id="emailform" method="post" action="/twitter/email">
+			<input type="text" placeholder="Email Address" name="email" /><br/><br/>
+			<input type="button" class="modalSubmit" id="add_email_button"/>
+		</form>
+  	</div>
+</div>
 <div id="fb-root"></div>
-<script>	
+<script>
+	{% if showAskEmail == true %}
+		$("#showAskEmail").modal();
+	{% endif %}
 	(function(d, s, id) {
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;

@@ -51,7 +51,6 @@ exports.addUser = function(user, callback) {
 exports.updateUser = function(user, callback) {
 	console.log('Updating user');
 	SPMongo.db.collection('users', function(err, collection) {
-		user._id = collection.db.bson_serializer.ObjectID.createFromHexString(user._id);
 		collection.update({'_id': user._id}, user, {safe:true}, function(err, result) {
 			if(err) {
 				console.log("Error", err);

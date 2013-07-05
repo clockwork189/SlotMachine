@@ -1,3 +1,5 @@
+var GameSettings = require("./../models/GameSettings.js");
+
 exports.setup = function (req, res) {
 	var game_settings = {
 		prizes: {
@@ -16,12 +18,18 @@ exports.setup = function (req, res) {
 		max_number_prizes_per_day: 0,
 		number_spins_per_user: 0,
 		number_spins_per_share: 0,
+		number_spins_per_like: 0,
+		number_spins_per_invite: 0,
 		promotion_end_date: new Date()
 	};
 
+	GameSettings.addSettings(game_settings, function(err, settings) {
+		console.log(settings);
+	});
+
 	//Set up Admins
 
-	GameSettings.addSettings(game_settings, function(result) {
-		res.redirect('/admin/index');
-	});
+	// GameSettings.addSettings(game_settings, function(result) {
+	// 	res.redirect('/admin/index');
+	// });
 };

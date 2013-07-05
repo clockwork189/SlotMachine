@@ -19,7 +19,9 @@
     "passport": "*",
     "passport-facebook": "*",
     "passport-twitter": "*",
-    "passport-google-oauth": "*"
+    "passport-google-oauth": "*",
+    "facebook-js": "*",
+    "googleapis": "*"
   },
   "engines": {
 	  "node": "0.10.4",

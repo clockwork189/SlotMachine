@@ -7,6 +7,9 @@ var Skeleton = function () {
         $("#signin_button").click(function() {
             $("#signinform").submit();
         });
+        $("#add_email_button").click(function() {
+            $("#emailform").submit();
+        });
         getGameParams();
     };
     var getGameParams = function () {

@@ -7,6 +7,7 @@ var express = require('express'),
     routes = require('./routes'),
     user = require('./routes/user'),
     admin = require('./routes/admin'),
+    setup = require('./routes/setup'),
     http = require('http'),
     swig = require('swig'),
     cons = require("consolidate"),
@@ -61,7 +62,7 @@ passport.use(new FacebookStrategy({
     var email = profile._json.email;
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      user.add(email, fullName, "facebook", accessToken, refreshToken, "", "", function (err, user) {
+      user.add(email, fullName, "facebook", accessToken, refreshToken, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });
@@ -71,19 +72,22 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
     consumerKey: "8dJ4QhxjhvHXdVaMstYMsw",
     consumerSecret: "ImEGNtrrbCwkxZJhnoyok9bJ398ZvMleov5cEWobN8",
-    callbackURL: "/auth/twitter/callback"
+    callbackURL: "/auth/twitter/callback",
+    passReqToCallback: true
   },
-  function(token, tokenSecret, profile, done) {
-    var fullName = profile._json.name;
-    var email = profile.username;
+  function(req, token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      user.add(email, fullName, "twitter", token, tokenSecret, "", "", function (err, user) {
-        if (err) { return done(err); }
-        done(null, user);
-      });
+      var fullName = profile._json.name;
+      var newUser = {
+          email: "",
+          full_name: fullName,
+          token: token,
+          tokenSecret: tokenSecret
+      };
+      req.session.user = newUser;
+      done(null, newUser);
     });
-    console.log("This is the users twitter profile: ", profile);
   }
 ));
 passport.use(new GoogleStrategy({
@@ -92,12 +96,11 @@ passport.use(new GoogleStrategy({
     callbackURL: "/auth/google/callback"
   },
   function(token, tokenSecret, profile, done) {
-    console.log("This is the users gplus profile: ", profile);
     var fullName = profile._json.name;
     var username = profile._json.email;
     var email = profile._json.email;
     process.nextTick(function () {
-      user.add(email, fullName, "google", token, tokenSecret, "", "", function (err, user) {
+      user.add(email, fullName, "google", token, tokenSecret, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });
@@ -136,15 +139,19 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/referral/:referralid', routes.index); // Change this to the appropriate route
 app.get('/privacy', routes.privacy);
 app.get('/earnmorespins', routes.earnmorespins);
+app.get('/getemail', routes.getemail);
 app.get('/admin/login', admin.login);
 app.get('/admin/index', restrict, admin.index);
 app.get('/admin/add', admin.add);
 app.get('/admin/view/users', restrict, admin.viewUsers);
 app.get('/admin/view/winners', restrict, admin.viewWinners);
 app.get('/admin/view/prizes', restrict, admin.viewPrizes);
+app.get('/admin/setup', restrict, setup.setup);
 
+app.post('/twitter/email', user.addTwitterEmail);
 app.post('/post/add/winner', user.addWinner);
 app.post('/post/update/player', user.updatePlayer);
 app.post('/post/game/params', user.getGameParams);
@@ -153,63 +160,40 @@ app.post('/login/user',user.login);
 app.post('/admin/auth', admin.auth);
 app.post('/admin/update/prizes/available', admin.update_available_prizes);
 
-// Redirect the user to Facebook for authentication.  When complete,
-// Facebook will redirect the user back to the application at
-//     /auth/facebook/callback
-app.get('/auth/facebook', passport.authenticate('facebook'));
-
-// Facebook will redirect the user to this URL after approval.  Finish the
-// authentication process by attempting to obtain an access token.  If
-// access was granted, the user will be logged in.  Otherwise,
-// authentication has failed.
-app.get('/auth/facebook/callback',  passport.authenticate('facebook', { failureRedirect: '/' }),
-  function(req, res) {
-    req.session.user = req.user;
-    res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
-  });
-
-
-// GET /auth/twitter
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Twitter authentication will involve redirecting
-//   the user to twitter.com.  After authorization, the Twitter will redirect
-//   the user back to this application at /auth/twitter/callback
-app.get('/auth/twitter', passport.authenticate('twitter'));
-
-// GET /auth/twitter/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  If authentication fails, the user will be redirected back to the
-//   login page.  Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-app.get('/auth/twitter/callback', passport.authenticate('twitter', { failureRedirect: '/' }),
-  function(req, res) {
-    req.session.user = req.user;
-    res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
-  });
-
-// GET /auth/google
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request.  The first step in Google authentication will involve
-//   redirecting the user to google.com.  After authorization, Google
-//   will redirect the user back to this application at /auth/google/callback
-app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
-                                            'https://www.googleapis.com/auth/userinfo.email'] }),
-  function(req, res){
-    // The request will be redirected to Google for authentication, so this
-    // function will not be called.
-  });
-
-app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
-  function(req, res) {
-    req.session.user = req.user;
-    res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
-  });
-
 app.get('/logout', function(req, res){
+  console.log(req.session.user);
   req.logout();
   req.session.user = undefined;
   res.redirect('/');
 });
+app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook/callback',  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    req.session.user = [];
+    req.session.user[0] = req.user;
+    res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
+  });
+
+
+app.get('/auth/twitter', passport.authenticate('twitter'));
+app.get('/auth/twitter/callback', passport.authenticate('twitter', {scope: "email", failureRedirect: '/' }),
+  function(req, res) {
+    req.session.user = [];
+    req.session.user[0] = req.user;
+    res.render('twitterauthcallback.html', { title: 'Spin To Win: Authentication Success'});
+  });
+
+app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile',
+                                            'https://www.googleapis.com/auth/userinfo.email'] }));
+
+app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    console.log(req.user);
+    req.session.user = [];
+    req.session.user[0] = req.user;
+    res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
+  });
+
 
 
 http.createServer(app).listen(app.get('port'), function(){

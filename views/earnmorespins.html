@@ -45,19 +45,21 @@
 			<h2>Like us on Facebook</h2>
 			<p>Like us on facebook and earn <span class="highlight large">{{ settings.number_spins_per_like }} spins.</span></p>
 			<div class="fb-like" data-href="https://www.facebook.com/thestorecom" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="arial"></div><br/>
+			{% if user.has_liked_page %}
 			<div class="gray_box">
-				You liked us on facebook and earned <span class="highlight">10 spins</span>
+				You liked us on facebook and earned <span class="highlight">{{ settings.number_spins_per_like }} spins</span>
 			</div>
+			{% endif %}
 		</div><br/><br/>
 
 		<div class="box">
 			<h2>Invite Friends</h2>
 			<p>Invite your friends and earn <span class="highlight large">{{ settings.number_spins_per_invite }} spins  </span> every time one of them registers to play.</p>
 			<div>
-				<p style="float:left;">Invite Friends From: </p>
-				<a href="/auth/facebook"><div style="float:left;" class="large_facebook"></div></a>
-				<a href="/auth/twitter"><div style="float:left;" class="large_twitter"></div></a>
-				<a href="/auth/google"><div style="float:left;" class="large_googleplus"></div></a>
+				<p style="float:left;">Invite Friends From: </p><br/><br/>
+				<a href="#" onclick="openSharer();"><div style="float:left;" class="large_facebook"></div></a>
+				<a href="#"><div style="float:left;" class="large_twitter"></div></a>
+				<a href="#"><div style="float:left;" class="large_googleplus"></div></a>
 			</div><br/><br/>
 			<p><span class="gray_text">Your email and contact lists are kept completely private. We will not send emails to your contacts without your consent. <a href="/privacy">Privacy Policy</a></span></p>
 			<div class="gray_box">
@@ -65,11 +67,15 @@
 			</div>
 		</div><br/><br/>
 		<div class="box">
-			<h2>Product Newsletters</h2>
-			<p>Sign up to our daily or weekly product newsletter and earn more<span class="highlight large"> free spins.</span></p>
-			
+			<h2>Referral Link</h2>
+			Post your referral link on your favorite websites, social networks or through email and receive <span class="highlight large">{{ settings.number_spins_per_invite }} spins  </span> free spins for every person who signs up through your link
+			<input type="text" disabled value="{{ shortenedURL }}" id="shortURL" /> 
+			<!--<button class="btn btn-success copyurl">Copy URL</button>-->
+			<!--
+			<div class="gray_box">
+				So far, <span class="highlight">0 people</span> have signed up from your invitation earning you <span class="highlight">0 spins</span>
+			</div>-->
 		</div><br/><br/>
-
 		
 	</div> <!-- /container -->
 	<div id="fb-root"></div>
@@ -86,8 +92,30 @@
 		var js, fjs = d.getElementsByTagName(s)[0];
 		if (d.getElementById(id)) return;
 			js = d.createElement(s); js.id = id;
-			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=141114962758351";
+			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=376845965748399";
 			fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script>
+$(".copyurl").click(function() {
+	window.clipboardData.setData('Text',$("#shortURL").val());
+});
+function openSharer() {
+	// var url = "http://localhost:3000/referral/{{user.unique_identifier}}";
+	// window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),  'facebook-share-dialog', 'width=626,height=436'); 
+	// return false;
+	FB.ui({
+	  method: 'feed',
+	  redirect_uri: '/',
+	  link: 'https://developers.facebook.com/docs/reference/dialogs/',
+	  picture: '/images/logo.png',
+	  name: 'TheStore.com',
+	  caption: 'Spin to Win at TheStore.com',
+	  description: 'Spin to Win at TheStore.com'
+	}, function(response){
+		console.log(response);
+	});
+}
 </script>
 {% endblock %}
