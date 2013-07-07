@@ -1,5 +1,6 @@
 var cons = require("consolidate");
 var GameSettings = require("./../models/GameSettings.js");
+var Prizes = require("./../models/Prizes.js");
 var googleapis = require('googleapis');
 /*
  * GET home page.
@@ -7,11 +8,13 @@ var googleapis = require('googleapis');
 
 exports.index = function(req, res){
     GameSettings.findSettings(function(err, game_settings) {
-        var usr;
-        if(req.session.user) {
-            usr = req.session.user[0];
-        }
-        res.render('index.html', { title: 'Spin To Win', settings: game_settings[0], user: usr, showAskEmail: false });
+        Prizes.findAll(function(err, prizes) {
+            var usr;
+            if(req.session.user) {
+                usr = req.session.user[0];
+            }
+            res.render('index.html', { title: 'Spin To Win', settings: game_settings[0], user: usr, prizes: prizes, showAskEmail: false });
+        });
     });
 };
 exports.privacy = function(req, res){
