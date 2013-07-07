@@ -12,8 +12,8 @@ var Slots = function (prizes) {
     var delay = 200;
 
     var reels = [];
-    var initialReels = [0, 0, 0];
-    var result = [1, 5, 9];
+    var initialReels = [1, 3, 5];
+    var result = [1, 3, 5];
     var width = 179;
     var height = 220;
     self.isSpinning = false;
@@ -146,19 +146,6 @@ var Game = function (kwargs) {
     var awardPrize = false;
     var slots;
     var result = [1, 2, 3];
-    var imageSources = {
-        tile_1: "javascripts/img/tile_1.png",
-        tile_2: "javascripts/img/tile_2.png",
-        tile_3: "javascripts/img/tile_3.png",
-        tile_4: "javascripts/img/tile_4.png",
-        tile_5: "javascripts/img/tile_5.png",
-        tile_6: "javascripts/img/tile_6.png",
-        tile_7: "javascripts/img/tile_7.png",
-        tile_8: "javascripts/img/tile_8.png",
-        tile_9: "javascripts/img/tile_9.png",
-        tile_10: "javascripts/img/tile_10.png",
-        tile_11: "javascripts/img/tile_11.png"
-    };
 
     self.init = function () {
         isRunning = true;
@@ -173,10 +160,21 @@ var Game = function (kwargs) {
         slots.init();
     };
     var setSpins = function () {
-        var digits = numPlays.toString().split('');
-        for(var i=digits.length - 1; i >=0; i--) {
-            var spinsLeft = 3 - parseInt(i, 10);
-            $(".spins_left .count:eq(" + spinsLeft + ")").text(digits[i]);
+        var digits = numPlays.toString().split('').reverse();
+        if(digits.length === 1) {
+            $(".spins_left .count:eq(3)").text(digits[0]);
+        } else if(digits.length === 2) {
+            $(".spins_left .count:eq(3)").text(digits[0]);
+            $(".spins_left .count:eq(2)").text(digits[1]);
+        } else if(digits.length === 3) {
+            $(".spins_left .count:eq(3)").text(digits[0]);
+            $(".spins_left .count:eq(2)").text(digits[1]);
+            $(".spins_left .count:eq(1)").text(digits[2]);
+        } else if(digits.length === 4) {
+            $(".spins_left .count:eq(3)").text(digits[0]);
+            $(".spins_left .count:eq(2)").text(digits[1]);
+            $(".spins_left .count:eq(1)").text(digits[2]);
+            $(".spins_left .count:eq(0)").text(digits[3]);
         }
     };
     var listenToEarnSpinsButton = function () {

@@ -24,7 +24,8 @@ exports.create = function(req, res){
         hash(password, function(err, salt, hash){
             if (err) throw err;
             var networksConnected = assignNetwork({}, "email", salt, hash);
-            createNewUser(req.body.email, req.body.fullname, networksConnected, game_settings[0].number_spins_per_user);
+            var ip = req.connection.remoteAddress;
+            createNewUser(req.body.email, req.body.fullname, networksConnected, ip, game_settings[0].number_spins_per_user);
             Users.addUser(newUser, function(err, user) {
                 console.log("I will add the user to the session", user);
                 req.session.user = user;
@@ -48,7 +49,8 @@ exports.addTwitterEmail = function (req, res) {
         } else {
             GameSettings.findSettings(function(err, game_settings) {
                 var networksConnected = assignNetwork({}, method, token, tokenSecret);
-                var newUser = createNewUser(email, usr.full_name, networksConnected, game_settings[0].number_spins_per_user);
+                var ip = req.connection.remoteAddress;
+                var newUser = createNewUser(email, usr.full_name, networksConnected, ip, game_settings[0].number_spins_per_user);
                 Users.addUser(newUser, function(err, user) {
                     req.session.user = user;
                     res.redirect("/");
@@ -65,12 +67,13 @@ function assignNetwork(networksConnected, method, token, tokenSecret) {
 
     return networksConnected;
 }
-function createNewUser(email, full_name, networksConnected, num_spins) {
+function createNewUser(email, full_name, networksConnected, ip_address, num_spins) {
     var newUser = {
                 email: email,
                 full_name: full_name,
                 networks: networksConnected,
                 unique_identifier: uuid(),
+                ip_address: ip_address,
                 numberSpins: num_spins
             };
     return newUser;
@@ -102,7 +105,7 @@ exports.add = function(email, fullname, method, token, tokenSecret, callback){
                 });
             } else {
                 var networksConnected = assignNetwork({}, method, token, tokenSecret);
-                var newUser = createNewUser(email, fullname, networksConnected, settings.number_spins_per_user);
+                var newUser = createNewUser(email, fullname, networksConnected, "", settings.number_spins_per_user);
                 Users.addUser(newUser, function(err, user) {
                     callback(err, user);
                 });
@@ -153,6 +156,7 @@ exports.getGameParams = function(req, res) {
 };
 exports.updatePlayer = function(req, res) {
     var user = req.body;
+    console.log(user);
     Users.updateUser(user, function(err, result) {
         req.session.user = result;
         res.json({success: "true"});
