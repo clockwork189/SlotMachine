@@ -41,16 +41,16 @@ exports.addTwitterEmail = function (req, res) {
     usr.email = email;
     Users.findByEmail(email, function(err, user) {
         if(user) {
-            user.networks = assignNetwork(user.networks, method, token, tokenSecret);
+            user.networks = assignNetwork(user.networks, method, usr.token, usr.tokenSecret);
             Users.updateUser(user, function(err, usr) {
                 req.session.user =  usr;
                 res.redirect("/");
             });
         } else {
             GameSettings.findSettings(function(err, game_settings) {
-                var networksConnected = assignNetwork({}, method, token, tokenSecret);
+                var networksConnected = assignNetwork({}, method, usr.token, usr.tokenSecret);
                 var ip = req.connection.remoteAddress;
-                var newUser = createNewUser(email, usr.full_name, networksConnected, ip, game_settings[0].number_spins_per_user);
+                var newUser = createNewUser(email, usr.full_name, networksConnected, ip, game_settings[0].number_spins_per_user, usr.pictureURL);
                 Users.addUser(newUser, function(err, user) {
                     req.session.user = user;
                     res.redirect("/");
@@ -67,13 +67,14 @@ function assignNetwork(networksConnected, method, token, tokenSecret) {
 
     return networksConnected;
 }
-function createNewUser(email, full_name, networksConnected, ip_address, num_spins) {
+function createNewUser(email, full_name, networksConnected, ip_address, num_spins, pictureURL) {
     var newUser = {
                 email: email,
                 full_name: full_name,
                 networks: networksConnected,
                 unique_identifier: uuid(),
                 ip_address: ip_address,
+                pictureURL: pictureURL,
                 numberSpins: num_spins
             };
     return newUser;
@@ -93,19 +94,19 @@ function checkFacebookLikes(accessToken, callback) {
  * add user.
  */
 
-exports.add = function(email, fullname, method, token, tokenSecret, callback){
-    var likesPage = false;
+exports.add = function(email, fullname, method, token, tokenSecret, pictureURL, callback){
     GameSettings.findSettings(function(err, game_settings) {
         Users.findByEmail(email, function(err, user) {
             var settings = game_settings[0];
             if(user) {
                 user.networks = assignNetwork(user.networks, method, token, tokenSecret);
+                user.pictureURL = pictureURL;
                 Users.updateUser(user, function(err, usr) {
                     callback(err, usr);
                 });
             } else {
                 var networksConnected = assignNetwork({}, method, token, tokenSecret);
-                var newUser = createNewUser(email, fullname, networksConnected, "", settings.number_spins_per_user);
+                var newUser = createNewUser(email, fullname, networksConnected, "", settings.number_spins_per_user, pictureURL);
                 Users.addUser(newUser, function(err, user) {
                     callback(err, user);
                 });

@@ -55,14 +55,17 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
     clientID: "376845965748399",
     clientSecret: "36b3561ebfd0eba7935baba8f7e537ec",
-    callbackURL: "http://localhost:3000/auth/facebook/callback" // Change this when LIVE
+    callbackURL: "http://localhost:3000/auth/facebook/callback", // Change this when LIVE
+    profileFields: ['id','displayName', 'emails', 'photos']
   },
   function(accessToken, refreshToken, profile, done) {
     var fullName = profile._json.name;
     var email = profile._json.email;
+    var pictureURL = profile._json.picture.data.url;
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      user.add(email, fullName, "facebook", accessToken, refreshToken, function (err, user) {
+      // console.log(profile);
+      user.add(email, fullName, "facebook", accessToken, refreshToken, pictureURL, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });
@@ -78,10 +81,12 @@ passport.use(new TwitterStrategy({
   function(req, token, tokenSecret, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
+      console.log(profile);
       var fullName = profile._json.name;
       var newUser = {
           email: "",
           full_name: fullName,
+          pictureURL: profile._json.profile_image_url_https,
           token: token,
           tokenSecret: tokenSecret
       };
@@ -99,8 +104,9 @@ passport.use(new GoogleStrategy({
     var fullName = profile._json.name;
     var username = profile._json.email;
     var email = profile._json.email;
+    var pictureURL =  profile._json.picture;
     process.nextTick(function () {
-      user.add(email, fullName, "google", token, tokenSecret, function (err, user) {
+      user.add(email, fullName, "google", token, tokenSecret, pictureURL, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });

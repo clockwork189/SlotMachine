@@ -9,7 +9,13 @@
           	<a class="brand" href="/"><img src="/images/logo.png" style="width: 170px;" /></a>
           	<div class="nav-collapse collapse">
           		{% if user.email %}
-					<div style="float:right; text-shadow:none; margin-top:20px;">Hi {{user.full_name}} <a href="/logout">Logout</a></div>
+					<div>
+						<div style="float:right; text-shadow:none; margin-top:20px;">Hi {{user.full_name}} 
+							{% if user.pictureURL %}
+								<img src="{{ user.pictureURL }}" style="width:30px; height: 30px;"/>
+							{% endif %}
+							<a href="/logout">Logout</a>
+						</div>
           		{% else %}
 	            <ul class="nav" style="float:right;">
 					<li><a href="#signup" data-toggle="modal"><span class="icon-pencil"></span> Sign Up</a></li>
