@@ -304,7 +304,30 @@ a {
   background-image: url("../images/game_buttons/google_big_button_hover.png");
   cursor:pointer;
 }
-
+.invite_facebook {
+  width: 92px;
+  height: 27px;
+  background-image: url("../images/facebook_invite.png");
+  cursor:pointer;
+}
+.invite_twitter {
+  width: 84px;
+  height: 27px;
+  background-image: url("../images/twitter_invite.png");
+  cursor:pointer;
+}
+.invite_google {
+  width: 110px;
+  height: 27px;
+  background-image: url("../images/google_plus_invite.png");
+  cursor:pointer;
+}
+.invite_email {
+  width: 126px;
+  height: 27px;
+  background-image: url("../images/email_invite.png");
+  cursor:pointer;
+}
 .modalForm input {
   width: 90%;
 }
@@ -372,3 +395,20 @@ a {
 .large {
   font-size: 18px;
 }
+.twitter_share_button {
+  height: 19px;
+  display: block;
+  padding: 0px 5px 6px 23px;
+  background: url('../images/game_buttons/twitter_small_button.png') no-repeat;
+}
+.social_referral_urls a {
+  display: inline;
+  margin-right:5px;
+}
+
+.copy_msg {
+  margin-left:20px;
+  color: green;
+  display: none;
+}
+

@@ -1,0 +1,199 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="navbar">
+  	<div class="navbar-inner">
+    	<a class="brand" href="/admin/index"><img src="/images/logo.png" style="width: 100px;" /></a>
+    	<ul class="nav" style="float:right;">
+      		<li><a href="/admin/index">Home</a></li>
+      		<li class="active"><a href="/admin/settings">Game Settings</a></li>
+      		<li><a href="/admin/view/users">Users</a></li>
+      		<li><a href="/admin/view/winners">Winners</a></li>
+      		<li><a href="/admin/view/prizes">Prizes</a></li>
+      		<li><a href="/admin/blockip">IP Block List</a></li>
+    	</ul>
+  	</div>
+</div>
+<div class="container admin">
+	<h2>Spin The Wheel: Game Settings</h2><br/>
+	<form method="post" action="/admin/update/prizes/available">
+		<h4>General Settings</h4>
+		<div class="row">
+			<div class="span5">
+				<strong>Maximum Number of Prizes Awarded Per Day:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="max_prizes_awarded_per_day" value="{{ parseInt(settings.max_number_prizes_per_day, 10) }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Number of Spins Per User Upon Signup:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="num_spins_per_user" value="{{ parseInt(settings.number_spins_per_user, 10) }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Number of Spins Per Share:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="num_spins_per_share" value="{{ parseInt(settings.number_spins_per_share, 10) }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Number of Spins For Liking Facebook Page:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="num_spins_like" value="{{ settings.number_spins_per_like }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Number of Spins Per User Invite:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="number_spins_per_invite" value="{{ settings.number_spins_per_invite }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Number of Direct Tweets per User*:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="number_direct_tweets_per_user" value="{{ settings.number_direct_tweets_per_user }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Promotion End Date:</strong>
+			</div>
+			<div class="span3">
+				<input type="text" name="promo_end_date" value="{{ settings.promotion_end_date }}"/>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				*Twitter limits each website to 250 direct messages per day. Please set this to a low number(5-10), if you are experiencing a high user volumes
+			</div>
+			<div class="span3">
+				
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<hr/>
+		<h4>Social Media Settings</h4>
+		<div class="row">
+			<div class="span5">
+				<strong>Twitter Tweeting Text(limit 120 characters)*:</strong>
+			</div>
+			<div class="span3">
+				<textarea name="tweeting_text">{{ settings.tweeting_text }}</textarea>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Twitter Direct Message Text(limit 120 characters)*:</strong>
+			</div>
+			<div class="span3">
+				<textarea name="twitter_direct_message_text">{{ settings.twitter_direct_message_text }}</textarea>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Facebook Invite Text:</strong>
+			</div>
+			<div class="span3">
+				<textarea name="facebook_invite_text">{{ settings.facebook_invite_text }}</textarea>
+			</div>
+			<div class="span4">
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Facebook Sharing Text:</strong>
+			</div>
+			<div class="span3">
+				<textarea name="facebook_sharing_text">{{ settings.facebook_sharing_text }}</textarea>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Google Plus Invite Text:</strong>
+			</div>
+			<div class="span3">
+				<textarea name="googleplus_invite_text">{{ settings.googleplus_invite_text }}</textarea>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Google Plus Sharing Text:</strong>
+			</div>
+			<div class="span3">
+				<textarea name="googleplus_sharing_text">{{ settings.googleplus_sharing_text }}</textarea>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				<strong>Invitation Email Text:</strong>
+			</div>
+			<div class="span3">
+				<textarea name="email_text">{{ settings.email_text }}</textarea>
+			</div>
+			<div class="span4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="span5">
+				* Twitters limits text to 140 characters. The referral link can take up to 20 characters which will be embedded with the tweet.
+			</div>
+			<div class="span3">
+				<input type="submit" class="btn btn-primary" value="Save Changes"/>
+			</div>
+			<div class="span4">
+			</div>
+		</div>
+	</form>
+</div>
+<script src="/javascripts/app/admin/index.js"></script>
+{% endblock content %}

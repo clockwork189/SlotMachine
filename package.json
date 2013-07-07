@@ -21,7 +21,8 @@
     "passport-twitter": "*",
     "passport-google-oauth": "*",
     "facebook-js": "*",
-    "googleapis": "*"
+    "googleapis": "*",
+    "filepicker": "*"
   },
   "engines": {
 	  "node": "0.10.4",

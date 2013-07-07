@@ -143,14 +143,25 @@ app.get('/referral/:referralid', routes.addReferral); // Change this to the appr
 app.get('/privacy', routes.privacy);
 app.get('/earnmorespins', routes.earnmorespins);
 app.get('/getemail', routes.getemail);
+
+//Admin
 app.get('/admin/login', admin.login);
 app.get('/admin/index', restrict, admin.index);
 app.get('/admin/add', admin.add);
 app.get('/admin/view/users', restrict, admin.viewUsers);
 app.get('/admin/view/winners', restrict, admin.viewWinners);
 app.get('/admin/view/prizes', restrict, admin.viewPrizes);
+app.get('/admin/blockip', restrict, admin.blockip);
+app.get('/admin/blocklist/delete/:id',restrict, admin.deleteip);
+app.get('/admin/settings', restrict, admin.settings);
 app.get('/admin/setup', restrict, setup.setup);
+app.get('/admin/prizes/edit/:id',restrict, admin.editPrizes);
+app.get('/admin/prizes/delete/:id',restrict, admin.deletePrize);
+app.post('/admin/add/blockedip', restrict, admin.addBlockedIP);
 
+app.post('/admin/prizes/edit/:id',restrict, admin.updatePrizes);
+app.post('/admin/create/prize', admin.addPrize);
+app.post('/invite/email', user.inviteEmails);
 app.post('/twitter/email', user.addTwitterEmail);
 app.post('/post/add/winner', user.addWinner);
 app.post('/post/update/player', user.updatePlayer);
@@ -169,8 +180,7 @@ app.get('/logout', function(req, res){
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',  passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-    req.session.user = [];
-    req.session.user[0] = req.user;
+    req.session.user= req.user;
     res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
   });
 
@@ -178,8 +188,7 @@ app.get('/auth/facebook/callback',  passport.authenticate('facebook', { failureR
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', {scope: "email", failureRedirect: '/' }),
   function(req, res) {
-    req.session.user = [];
-    req.session.user[0] = req.user;
+    req.session.user = req.user;
     res.render('twitterauthcallback.html', { title: 'Spin To Win: Authentication Success'});
   });
 
@@ -189,8 +198,7 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.g
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     console.log(req.user);
-    req.session.user = [];
-    req.session.user[0] = req.user;
+    req.session.user = req.user;
     res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
   });
 
@@ -213,9 +221,9 @@ function ensureAuthenticated(req, res, next) {
 
 function restrict(req, res, next) {
   if (req.session.administrator) {
-  next();
+    next();
   } else {
-  req.session.error = 'Access denied!';
-  res.redirect('/admin/login');
+    req.session.error = 'Access denied!';
+    res.redirect('/admin/login');
   }
 }

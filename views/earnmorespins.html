@@ -57,9 +57,10 @@
 			<p>Invite your friends and earn <span class="highlight large">{{ settings.number_spins_per_invite }} spins  </span> every time one of them registers to play.</p>
 			<div>
 				<p style="float:left;">Invite Friends </p>
-				<a href="#" onclick="openSharer();"><div style="float:left;" class="large_facebook"></div></a>
-				<!--<a href="#"><div style="float:left;" class="large_twitter"></div></a>
-				<a href="#"><div style="float:left;" class="large_googleplus"></div></a>-->
+				<a href="#" class="facebook_invite"><div style="float:left;" class="invite_facebook"></div></a>
+				<a href="#" class="twitter_invite"><div style="float:left;" class="invite_twitter"></div></a>
+				<a href="#" class="googleplus_invite"><div style="float:left;" class="invite_google"></div></a>
+				<a href="#" class="email_invite"><div style="float:left;" class="invite_email"></div></a>
 			</div><br/><br/>
 			<p><span class="gray_text">Your email and contact lists are kept completely private. We will not send emails to your contacts without your consent. <a href="/privacy">Privacy Policy</a></span></p>
 			<div class="gray_box">
@@ -69,30 +70,36 @@
 		<div class="box">
 			<h2>Referral Link</h2>
 			Post your referral link on your favorite websites, social networks or through email and receive <span class="highlight large">{{ settings.number_spins_per_invite }} spins  </span> free spins for every person who signs up through your link
-			<input type="text" disabled value="{{ shortenedURL }}" id="shortURL" /> 
-			<fb:share-button href="{{ shortenedURL }}" type="button"></fb:share-button>
-			<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-url="{{shortenedURL}}">Tweet</a>
-			<a href="https://plus.google.com/share?url={URL}" onclick="javascript:window.open({{shortenedURL}},
-  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" target="_blank"><img
-  src="https://www.gstatic.com/images/icons/gplus-32.png" alt="Share on Google+"/></a>
-			<!--<button class="btn btn-success copyurl">Copy URL</button>-->
+			<input type="text" disabled value="{{ shortenedURL }}" id="shortURL" /> <button class="btn btn-success copyurl">Copy URL</button><span class="copy_msg">Copied!</span><br/>
+			<div class="social_referral_urls">
+				<a title="send to Facebook" href="http://www.facebook.com/sharer.php?s=100&amp;p[title]=Spin To Win&amp;p[summary]={{facebook_sharing_text}}&amp;p[url]={{shortenedURL}}&amp;p[images][0]=/images/logo.png" target="_blank" onclick="return !window.open(this.href, 'Facebook', 'width=640,height=300')" >
+  					<img src="images/game_buttons/facebook_small_button.png" alt="Facebook" />
+				</a>
+				<a href="https://twitter.com/share?url={{shortenedURL}}" class="twitter_share_button"></a>
+				<a href="https://plus.google.com/share?url={{shortenedURL}}" onclick="return !window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" target="_blank">
+  					<img src="images/game_buttons/google_small_button.png" alt="Share on Google+"/>
+				</a>
+			</div>
 			<!--
 			<div class="gray_box">
 				So far, <span class="highlight">0 people</span> have signed up from your invitation earning you <span class="highlight">0 spins</span>
 			</div>-->
 		</div><br/><br/>
-		
 	</div> <!-- /container -->
-	<div id="fb-root"></div>
-	<footer>
-      	<div class="container">
-        	<div class="row">
-        		<div class="span8">Copyright © 2013 TheStore.com Inc. All rights reserved.</div>
-        		<div class="span4">Official Rules  |  Disclaimers  |  Privacy Policy</div>
-        	</div>
-      	</div>
-    </footer>
-
+	<div id="inviteEmailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" >
+	  	<div class="modal-header">
+	    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	  	</div>
+	  	<div class="modal-body">
+	    	<p>Enter the emails of the friends you want to invite and earn <span class="highlight large">{{ settings.number_spins_per_invite }}</span> spins every time one of them registers to play.</p>
+	    	<form class="modalForm" id="emailInviteForm" method="post" action="/invite/email">
+	    		<input type="text" id="emails_to_invite" style="width:400px;"/><br/>
+				<input type="button" class="modalSubmit" id="invite_emails"/>
+			</form>
+	  	</div>
+	</div>
+<div id="fb-root"></div>
 <script src="https://apis.google.com/js/plusone.js"></script>
 <script>	
 	(function(d, s, id) {
@@ -102,32 +109,10 @@
 			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=376845965748399";
 			fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));
+	if (top.location!= self.location) {
+            top.location = self.location;
+        }
 </script>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-<script>
-$(".copyurl").click(function() {
-	window.clipboardData.setData('Text',$("#shortURL").val());
-});
-function openSharer() {
-	// var url = "http://localhost:3000/referral/{{user.unique_identifier}}";
-	// window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(url),  'facebook-share-dialog', 'width=626,height=436'); 
-	// return false;
-	FB.init({
-	appId:'376845965748399',
-	cookie:true,
-	status:true,
-	xfbml:true
-	});
-
-	FB.ui({
-		title: 'Spin To Win',
-		method: 'apprequests',
-		message: 'Come over and play Spin To Win at theStore.com {{ shortenedURL }}'
-	});
-	if (top.location!= self.location) {
-		top.location = self.location
-	}
-}
-</script>
+<script src="/javascripts/app/earnmore.js"></script>
 {% endblock %}

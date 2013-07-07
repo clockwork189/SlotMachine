@@ -24,12 +24,12 @@ exports.findBlockedIPs = function(callback) {
 exports.addIP = function(ip, callback) {
 	console.log('Adding Game Settings: ', ip);
 	SPMongo.db.collection('ip_blocklist', function(err, collection) {
-		collection.findOne({'ip_address': ip.address}, function(err, usr) {
+		collection.findOne({'ip_address': ip}, function(err, usr) {
 			if(usr) {
 				console.log("IP Address already added");
 				callback(null, usr);
 			} else {
-				collection.insert(ipd, {safe:true}, function(err, result) {
+				collection.insert(ip, {safe:true}, function(err, result) {
 					if(err) {
 						console.log("Error saving ip:", err);
 						callback(err);
@@ -44,10 +44,10 @@ exports.addIP = function(ip, callback) {
 };
 
 
-exports.deleteIP = function(ip, callback) {
-	console.log('Deleting IP Address: ', ip);
+exports.deleteIP = function(id, callback) {
+	console.log('Deleting IP Address: ', id);
 	SPMongo.db.collection('ip_blocklist', function(err, collection) {
-		collection.remove({'ip_address': ip}, {safe:true}, function(err, result) {
+		collection.remove({_id: collection.db.bson_serializer.ObjectID.createFromHexString(id)}, {safe:true}, function(err, result) {
 			if(err) {
 				callback(err);
 			} else {

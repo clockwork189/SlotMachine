@@ -1,0 +1,112 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="navbar">
+  	<div class="navbar-inner">
+    	<a class="brand" href="/admin/index"><img src="/images/logo.png" style="width: 100px;" /></a>
+    	<ul class="nav" style="float:right;">
+      		<li><a href="/admin/index">Home</a></li>
+          <li><a href="/admin/settings">Game Settings</a></li>
+          <li><a href="/admin/view/users">Users</a></li>
+          <li><a href="/admin/view/winners">Winners</a></li>
+          <li class="active"><a href="/admin/view/prizes">Prizes</a></li>
+          <li><a href="/admin/blockip">IP Block List</a></li>
+    	</ul>
+  	</div>
+</div>
+<div class="container admin">
+  <h2>Spin The Wheel: Edit Prize</h2><br/>
+  <ul class="nav nav-tabs" id="prizesTabs">
+    <li class="active"><a href="#home">View All Prizes</a></li>
+    <li><a href="#prizes_awarded">Prizes Awarded</a></li>
+    <li><a href="#add_prizes">Add Prizes</a></li>
+  </ul>
+ 
+    <form action="/admin/prizes/edit/{{ prize._id }}" method="post">
+      <div class="row">
+        <div class="span5">
+          <strong>Name of Prize:</strong>
+        </div>
+        <div class="span3">
+          <input type="text" name="prize_name" value="{{prize.name}}" />
+        </div>
+        <div class="span4">
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="span5">
+          <strong>Number of Prizes Available:</strong>
+        </div>
+        <div class="span3">
+          <input type="text" name="number_prizes_available" value="{{prize.number_available}}" />
+        </div>
+        <div class="span4">
+          
+        </div>
+      </div>
+      <div class="row">
+        <div class="span5">
+          <strong>Upload Image:</strong>
+        </div>
+        <div class="span3">
+          <input type="filepicker" data-fp-button-text="Choose Image" data-fp-mimetype="image/*" name="prize_image" data-fp-store-path="prizes/" onchange="getFileUrl();"/>
+          <input type="hidden" name="img_url" value="{{prize.image_url}}" />
+          <input type="hidden" name="prize_id" value="{{prize._id}}" />
+        </div>
+        <div class="span4">
+          
+        </div>
+      </div><br/>
+      <div class="row">
+        <div class="span5">
+          
+        </div>
+        <div class="span5 preview">
+        </div>
+        <div class="span2">
+          
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="span5">
+          
+        </div>
+        <div class="span3">
+          <input type="submit" value="Update Prize" class="btn btn-primary" />
+        </div>
+        <div class="span4">
+          
+        </div>
+      </div>
+    </form>
+<script>
+  $(function () {
+    $('#prizesTabs a').click(function (e) {
+      e.preventDefault();
+      $(this).tab('show');
+    })
+  })
+</script>
+<script type="text/javascript">
+(function(a){if(window.filepicker){return}var b=a.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===a.location.protocol?"https:":"http:")+"//api.filepicker.io/v1/filepicker.js";var c=a.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c);var d={};d._queue=[];var e="pick,pickMultiple,pickAndStore,read,write,writeUrl,export,convert,store,storeUrl,remove,stat,setKey,constructWidget,makeDropPane".split(",");var f=function(a,b){return function(){b.push([a,arguments])}};for(var g=0;g<e.length;g++){d[e[g]]=f(e[g],d._queue)}window.filepicker=d})(document); 
+</script>
+<script>
+filepicker.setKey("AGSGfwtfxTcms1R4gVNzEz");
+$(".upload_image").click(function() {
+  filepicker.pickAndStore({mimetype:"image/*"},
+          {location:"S3"}, function(InkBlobs){
+     console.log(JSON.stringify(InkBlobs));
+  });
+})
+$(".preview").empty();
+$("<img />").attr("src", "{{ prize.image_url }}").appendTo($(".preview"));
+var url = "";
+function getFileUrl(e) {
+  url = event.fpfile.url;
+  $(".preview").empty();
+  $("<img />").attr("src", url).appendTo($(".preview"));
+  $("input[name='img_url']").val(url);
+}
+</script>
+{% endblock content %}

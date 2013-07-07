@@ -7,9 +7,9 @@ var googleapis = require('googleapis');
 
 exports.index = function(req, res){
     GameSettings.findSettings(function(err, game_settings) {
-        var usr = undefined;
-        if(req.session.user !== undefined) {
-            usr = req.session.user[0];
+        var usr;
+        if(req.session.user) {
+            usr = req.session.user;
         }
         res.render('index.html', { title: 'Spin To Win', settings: game_settings[0], user: usr, showAskEmail: false });
     });

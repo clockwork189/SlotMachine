@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/admin/index"><img src="/images/logo.png" style="width: 100px;" /></a>
+      <ul class="nav" style="float:right;">
+          <li><a href="/admin/index">Home</a></li>
+          <li><a href="/admin/settings">Game Settings</a></li>
+          <li><a href="/admin/view/users">Users</a></li>
+          <li><a href="/admin/view/winners">Winners</a></li>
+          <li><a href="/admin/view/prizes">Prizes</a></li>
+          <li class="active"><a href="/admin/blockip">IP Block List</a></li>
+      </ul>
+    </div>
+</div>
+<div class="container admin">
+	<h2>Spin The Wheel: Block IP</h2><br/>
+  <ul class="nav nav-tabs" id="blockListTabs">
+    <li class="active"><a href="#blockIP">Block IP Address</a></li>
+    <li><a href="#blockedIPs">View Blocked IP Addresses</a></li>
+  </ul>
+ 
+  <div class="tab-content">
+    <div class="tab-pane active" id="blockIP">
+        <form action="/admin/add/blockedip" method="post">
+          <div class="row">
+            <div class="span5">
+              <strong>Enter the IP Address to block:</strong>
+            </div>
+            <div class="span3">
+              <input type="text" name="ip_address"/>
+            </div>
+            <div class="span4">
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="span5">
+            </div>
+            <div class="span3">
+              <input type="submit" value="Add IP" class="btn btn-primary" />
+            </div>
+            <div class="span4">
+            
+            </div>
+          </div>
+        </form>
+    </div>
+    <div class="tab-pane" id="blockedIPs">
+      {% for ip in blockedIPs %}
+        <div> {{ ip.ip_address }} <a href="/admin/blocklist/delete/{{ip._id}}">Delete</a></div>
+      {% endfor%}
+    </div>
+  </div>
+</div>
+<script>
+  $('#blockListTabs a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  });
+</script>
+{% endblock content %}
