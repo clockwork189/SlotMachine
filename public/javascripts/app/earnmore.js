@@ -7,14 +7,14 @@ var EarnMore = function () {
     var self = {};
     var url = $("#shortURL").val();
     self.init = function () {
-        initializeCopier();
-        $(".facebook_invite").click(function() { openFacebookInvite(); });
-        $(".twitter_invite").click(function() { openTwitterInvite(); });
-        $(".googleplus_invite").click(function() { opengooglePlusInvite(); });
+        // initializeCopier();
+        // $(".facebook_invite").click(function() { openFacebookInvite(); });
+        // $(".twitter_invite").click(function() { openTwitterInvite(); });
+        // $(".googleplus_invite").click(function() { opengooglePlusInvite(); });
         $(".email_invite").click(function() { openemailInvite(); });
-        $("#invite_emails").click(function() { sendEmailInvites(); });
-        $("#emails_to_invite").tagsInput({ 'defaultText':'Add emails' });
-        getGameParams();
+        // $("#invite_emails").click(function() { sendEmailInvites(); });
+        // $("#emails_to_invite").tagsInput({ 'defaultText':'Add emails' });
+        // getGameParams();
     };
     var setSpins = function (numPlays) {
         var digits = numPlays.toString().split('');

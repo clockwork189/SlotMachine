@@ -65,19 +65,19 @@
 				So far, <span class="highlight">0 people</span> have signed up from your invitation earning you <span class="highlight">0 spins</span>
 			</div>-->
 		</div><br/><br/>
+		<div id="inviteEmailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+		  	<div class="modal-header">
+		    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		  	</div>
+		  	<div class="modal-body">
+		    	<p>Enter the emails of the friends you want to invite and earn <span class="highlight large">{{ settings.number_spins_per_invite }}</span> spins every time one of them registers to play.</p>
+		    	<form class="modalForm" id="emailInviteForm" method="post" action="/invite/email">
+		    		<input type="text" id="emails_to_invite" style="width:400px;"/><br/>
+					<input type="button" class="modalSubmit" id="invite_emails"/>
+				</form>
+		  	</div>
+		</div>
 	</div> <!-- /container -->
-	<div id="inviteEmailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" >
-	  	<div class="modal-header">
-	    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-	  	</div>
-	  	<div class="modal-body">
-	    	<p>Enter the emails of the friends you want to invite and earn <span class="highlight large">{{ settings.number_spins_per_invite }}</span> spins every time one of them registers to play.</p>
-	    	<form class="modalForm" id="emailInviteForm" method="post" action="/invite/email">
-	    		<input type="text" id="emails_to_invite" style="width:400px;"/><br/>
-				<input type="button" class="modalSubmit" id="invite_emails"/>
-			</form>
-	  	</div>
-	</div>
 <div id="fb-root"></div>
 <script src="https://apis.google.com/js/plusone.js"></script>
 <script>	
