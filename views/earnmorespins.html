@@ -1,27 +1,6 @@
 {% extends 'layout.html' %}
+{% include 'header.html' %}
 {% block content %}
-	<div class="navbar navbar-inverse navbar-fixed-top">
-	    <div class="navbar-inner">
-	        <div class="container">
-				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-		            <span class="icon-bar"></span>
-	          	</button>
-	          	<a class="brand" href="/"><img src="/images/logo.png" style="width: 170px;" /></a>
-	          	<div class="nav-collapse collapse">
-	          		{% if user %}
-						<div style="float:right; text-shadow:none; margin-top:20px;">Hi {{user.full_name}} <a href="/logout">Logout</a></div>
-	          		{% else %}
-		            <ul class="nav" style="float:right;">
-						<li><a href="#signup" data-toggle="modal"><span class="icon-pencil"></span> Sign Up</a></li>
-						<li><a href="#login" data-toggle="modal"><span class="icon-user"></span> Login</a></li>
-		            </ul>
-		            {% endif %}
-	          	</div><!--/.nav-collapse -->
-	        </div>
-	    </div>
-	</div>
     <div class="container earnmore">
     	<div class="box">
 			<div class="row">

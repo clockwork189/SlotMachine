@@ -13,7 +13,7 @@ var Skeleton = function () {
         getGameParams();
     };
     var getGameParams = function () {
-         $.ajax({
+        $.ajax({
             type: "POST",
             url:"/post/game/params",
             dataType: "json",

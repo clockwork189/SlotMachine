@@ -160,21 +160,21 @@ var Game = function (kwargs) {
         slots.init();
     };
     var setSpins = function () {
-        var digits = numPlays.toString().split('').reverse();
+        var digits = numPlays.toString().split('');
         if(digits.length === 1) {
             $(".spins_left .count:eq(3)").text(digits[0]);
         } else if(digits.length === 2) {
-            $(".spins_left .count:eq(3)").text(digits[0]);
-            $(".spins_left .count:eq(2)").text(digits[1]);
+            $(".spins_left .count:eq(3)").text(digits[1]);
+            $(".spins_left .count:eq(2)").text(digits[0]);
         } else if(digits.length === 3) {
-            $(".spins_left .count:eq(3)").text(digits[0]);
+            $(".spins_left .count:eq(3)").text(digits[2]);
             $(".spins_left .count:eq(2)").text(digits[1]);
-            $(".spins_left .count:eq(1)").text(digits[2]);
+            $(".spins_left .count:eq(1)").text(digits[0]);
         } else if(digits.length === 4) {
-            $(".spins_left .count:eq(3)").text(digits[0]);
-            $(".spins_left .count:eq(2)").text(digits[1]);
-            $(".spins_left .count:eq(1)").text(digits[2]);
-            $(".spins_left .count:eq(0)").text(digits[3]);
+            $(".spins_left .count:eq(3)").text(digits[3]);
+            $(".spins_left .count:eq(2)").text(digits[2]);
+            $(".spins_left .count:eq(1)").text(digits[1]);
+            $(".spins_left .count:eq(0)").text(digits[0]);
         }
     };
     var listenToEarnSpinsButton = function () {

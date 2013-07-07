@@ -40,7 +40,7 @@ exports.addUser = function(user, callback) {
 						callback(err);
 					} else {
 						console.log("User Successfully Added");
-						callback(null, result);
+						callback(null, result[0]);
 					}
 				});
 			}
