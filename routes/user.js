@@ -193,7 +193,7 @@ exports.addWinner = function(req, res) {
 exports.inviteEmails = function(req, res) {
     var emails = req.body.emails;
     if(req.session.user) {
-        // Send Email Here
+        console.log(emails);
     }
 };
 function authenticate(email, pass, fn) {

@@ -41,7 +41,7 @@
 				<a href="#" class="googleplus_invite">
 					<div style="float:left;" data-clientid="206420410955.apps.googleusercontent.com" data-contenturl="{{ shortenedURL }}" data-calltoactionlabel="INVITE" data-calltoactionurl="https://developers.google.com/+/web/share/interactive?invite=true" data-cookiepolicy="single_host_origin" data-prefilltext="{{ settings.googleplus_invite_text }}" class="invite_google g-interactivepost"></div>
 				</a>
-				<a href="#" class="email_invite"><div style="float:left;" class="invite_email"></div></a>
+				<a href="mailto:?subject={{settings.email_subject}}&amp;body={{settings.email_body}} {{shortenedURL}}" class="email_invite" target="_top"><div style="float:left;" class="invite_email"></div></a>
 			</div><br/><br/>
 			<p><span class="gray_text">Your email and contact lists are kept completely private. We will not send emails to your contacts without your consent. <a href="/privacy">Privacy Policy</a></span></p>
 			<div class="gray_box">

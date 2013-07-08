@@ -191,7 +191,8 @@ exports.update_available_prizes = function (req, res) {
 		googleplus_invite_text: req.body.googleplus_invite_text,
 		googleplus_sharing_text: req.body.googleplus_sharing_text,
 		number_direct_tweets_per_user: req.body.number_direct_tweets_per_user,
-		email_text: req.body.email_text
+		email_subject: req.body.email_subject,
+		email_body: req.body.email_body
 	};
 
 	GameSettings.updateSettings(game_settings, function(result) {
