@@ -1,4 +1,4 @@
-var Slots = function (prizes) {
+var Slots = function (prizes, callback) {
     var self = {};
     var prizes = prizes || [];
     var canvas = document.getElementById("slots");
@@ -79,25 +79,7 @@ var Slots = function (prizes) {
                 }
             }
         }
-        checkAllTilesStopped();
-    };
-    var checkAllTilesStopped = function () {
-        var counter = 0;
-        for(var i = 0; i < reels.length; i++) {
-            var tile = reels[i];
-            if(tile.id === result[i]) {
-                counter++;
-            }
-            if(counter === 3) {
-                delay -= 1;
-                if(delay < 0) 
-                if(delay === 0) {
-                    self.isSpinning = false;
-                    startTime = 0;
-                    delay = 300;
-                }
-            }
-        }
+        checkSpinning();
     };
     var generateRandomTile = function (currId, min, max) {
         var rand = Math.round(Math.random() * (max - min) + min);
@@ -115,9 +97,36 @@ var Slots = function (prizes) {
         context.fill();
     };
 
+    var checkSpinning = function () {
+        var counter = 0;
+        for(var i = 0; i < reels.length; i++) {
+            var tile = reels[i];
+            if(tile.id === result[i]) {
+                counter++;
+            }
+            if(counter === 3) {
+                delay -= 1;
+                if(delay < 0) {
+                    self.isSpinning = false;
+                    startTime = 0;
+                    delay = 300;
+                }
+            }
+        }
+    };
     self.spin = function (prizes) {
         self.isSpinning = true;
         result = prizes;
+        var timerId = setInterval(function() {
+            if(self.isSpinning === false) {
+                if(result[0] === result[1] && result[1] === result[2]) {
+                    callback(true);
+                } else {
+                    callback(false);
+                }
+                clearInterval(timerId);
+            }
+        }, 200);
     };
 
     return self;
@@ -156,7 +165,12 @@ var Game = function (kwargs) {
         loop();
     };
     var initializeSlots = function () {
-        slots = new Slots(prizes);
+        slots = new Slots(prizes, function(hasWon) {
+            awardPrize = hasWon;
+            if(awardPrize) {
+                playerWin();
+            }
+        });
         slots.init();
     };
     var setSpins = function () {
@@ -181,7 +195,6 @@ var Game = function (kwargs) {
     var listenToEarnSpinsButton = function () {
         $(".earnMoreSpins").click(function() {
             if(kwargs.user === undefined) {
-                //alert("You must sign up or login to play");
                 $('#signup').modal();
             } else {
                 window.location = "/earnmorespins";
@@ -197,6 +210,7 @@ var Game = function (kwargs) {
                 $('#signup').modal();
             } else if(numPlays > 0) {
                 if(slots.isSpinning === false) {
+                    awardPrize = false;
                     var res = calculatePrize();
                     numPlays -= 1;
                     user.numberSpins = numPlays;
@@ -220,14 +234,13 @@ var Game = function (kwargs) {
     var calculatePrize = function() {
         var slotArray = [];
         for(var i = 0; i < 3; i++) {
-            slotArray[i] = random(1, 11);
+            slotArray[i] = random(0, prizes.length);
         }
         checkVictory(slotArray[0], slotArray[1], slotArray[2]);
         return slotArray;
     };
     var checkVictory = function (slot1, slot2, slot3) {
-        if(slot1 === slot2 === slot3) {
-            var prize_won = prizes["prize_" + slot1];
+        if(slot1 === slot2 && slot2 === slot3) {
             if(awardedPrizes >= availablePrizesToday) {
                 calculatePrize();
             }
@@ -235,30 +248,29 @@ var Game = function (kwargs) {
         result[0] = slot1;
         result[1] = slot2;
         result[2] = slot3;
-        didPlayerWin();
     };
     //A simple random generator
     var random = function (min, max) {
         return Math.round(Math.random() * (max - min) + min);
     };
-    var didPlayerWin = function () {
-        if(result[0] === result[1] === result[2]) {
-            if(slot.isSpinning ===false) {
-                $("#youwon").modal();
-                var data = {
-                    usr: user,
-                    prize: result[0]
-                };
-                $.ajax({
-                    type: "POST",
-                    url:"/post/add/winner",
-                    data: data,
-                    dataType: "json",
-                    success:function(result){
-
-                    }
-                });
-            }
+    var playerWin = function () {
+        if(slots.isSpinning ===false) {
+            $("#win_image").empty();
+            $("<img src='" + prizes[result[0]].image_url + "' style='width:150px; height: 200px;' />").appendTo($("#win_image"));
+            $("#youwon").modal();
+            var data = {
+                usr: user,
+                prize: prizes[result[0]]
+            };
+            $.ajax({
+                type: "POST",
+                url:"/post/add/winner",
+                data: data,
+                dataType: "json",
+                success:function(result){
+                    awardPrize = false;
+                }
+            });
         }
     };
     var loop = function () {
