@@ -350,11 +350,16 @@ a {
   background-color: #fff;
 }
 .bottom_banner {
-  width: 839px;
-  height: 96px;
+  width: 808px;
+  height: 82px;
   margin: 0 auto;
-  background-image: url("../images/home_bottom_banner.png"); 
+  background-image: url("../images/home_bottom_banner.png");
   background-repeat: no-repeat;
+  background-position-y: -2px;
+  background-position-x: -3px;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+ -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black;
 }
 .earnmore {
   text-shadow: none;
