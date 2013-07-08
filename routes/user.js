@@ -25,7 +25,7 @@ exports.create = function(req, res){
             if (err) throw err;
             var networksConnected = assignNetwork({}, "email", salt, hash);
             var ip = req.connection.remoteAddress;
-            createNewUser(req.body.email, req.body.fullname, networksConnected, ip, game_settings[0].number_spins_per_user);
+            var newUser = createNewUser(req.body.email, req.body.fullname, networksConnected, ip, game_settings[0].number_spins_per_user);
             Users.addUser(newUser, function(err, user) {
                 Users.findByUUID(req.session.referral, function(err, referrer) {
                     referrer.numberSpins = referrer.numberSpins + game_settings[0].number_spins_per_invite;
@@ -163,11 +163,21 @@ exports.login = function(req, res){
 exports.getGameParams = function(req, res) {
     GameSettings.findSettings(function(err, game_settings) {
         Prizes.findAll(function(err, prizes) {
-            var usr;
-            if(req.session.user) {
-                usr = req.session.user;
-            }
-            res.json({ settings: game_settings[0], user: usr, prizes: prizes });
+            Winners.findAll(function(err, winners) {
+                // var awardedPrizes = {};
+                // for(var i = 0; i < winners.length; i++) {
+                //     if(awardedPrizes[winners[i].prize._id]) {
+                //         awardedPrizes[winners[i].prize._id] += 1;
+                //     } else {
+                //         awardedPrizes[winners[i].prize._id] = 1;
+                //     }
+                // }
+                var usr;
+                if(req.session.user) {
+                    usr = req.session.user;
+                }
+                res.json({ settings: game_settings[0], user: usr, prizes: prizes });
+            });
         });
     });
 };

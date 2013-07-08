@@ -414,3 +414,19 @@ a {
 #win_image {
   text-align: center;
 }
+
+.widgets {
+  background-color: #E0E0E0;
+  padding:10px;
+  width: 400px;
+  float: left;
+  margin-left: 10px;
+  margin-top: 20px;
+  -webkit-box-shadow: 0 8px 6px -6px black;
+ -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px black;
+}
+.widget_text {
+  color: green;
+  font-size: 28px;
+}

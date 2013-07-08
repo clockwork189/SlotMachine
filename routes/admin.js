@@ -24,8 +24,12 @@ exports.login = function(req, res){
  * GET Admin Dashboard
  */
 exports.index = function(req, res){
-	GameSettings.findSettings(function(err, game_settings) {
-		res.render('admin/index.html', { title: 'Spin To Win: Administrator', settings: game_settings[0] });
+	Users.findAll(function(err, users) {
+		Winners.findAll(function(err, winners) {
+			Prizes.findAll(function(err, prizes) {
+				res.render('admin/index.html', { title: 'Spin To Win: Administrator', winners: winners, users: users, prizes: prizes });
+			});
+		});
 	});
 };
 
