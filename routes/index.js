@@ -48,3 +48,7 @@ exports.addReferral = function (req, res) {
     req.session.referral = referrer;
     res.redirect("/");
 };
+
+exports.blockIP = function (req,res) {
+    res.render('blockedip.html', { title: 'Spin To Win'});
+};

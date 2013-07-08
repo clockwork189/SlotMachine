@@ -21,6 +21,20 @@ exports.findBlockedIPs = function(callback) {
 	});
 };
 
+exports.findIP = function(ip, callback) {
+	console.log('Retrieving Blocked IPs: ');
+	SPMongo.db.collection('ip_blocklist', function(err, collection) {
+		collection.findOne({'ip_address': ip}, function(err, usr) {
+			if(err) {
+				callback(err);
+			} else {
+				callback(null, usr);
+			}
+		});
+	});
+};
+
+
 exports.addIP = function(ip, callback) {
 	console.log('Adding Game Settings: ', ip);
 	SPMongo.db.collection('ip_blocklist', function(err, collection) {

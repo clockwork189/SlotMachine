@@ -19,6 +19,7 @@ var express = require('express'),
     FacebookStrategy = require('passport-facebook').Strategy,
     TwitterStrategy = require('passport-twitter').Strategy,
     GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+    IPBlocklist = require("./models/IPBlocklist.js"),
     path = require('path');
 
 var app = express();
@@ -148,12 +149,12 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
-app.get('/referral/:referralid', routes.addReferral); // Change this to the appropriate route
-app.get('/privacy', routes.privacy);
-app.get('/earnmorespins', routes.earnmorespins);
-app.get('/getemail', routes.getemail);
-
+app.get('/', getClientIp, routes.index);
+app.get('/referral/:referralid', getClientIp, routes.addReferral); // Change this to the appropriate route
+app.get('/privacy', getClientIp, routes.privacy);
+app.get('/earnmorespins', getClientIp, routes.earnmorespins);
+app.get('/getemail', getClientIp, routes.getemail);
+app.get('/user/blockedip', getClientIp, routes.blockIP);
 //Admin
 app.get('/admin/login', admin.login);
 app.get('/admin/index', restrict, admin.index);
@@ -177,7 +178,7 @@ app.post('/post/add/winner', user.addWinner);
 app.post('/post/update/player', user.updatePlayer);
 app.post('/post/game/params', user.getGameParams);
 app.post('/add/new/user', user.create);
-app.post('/login/user',user.login);
+app.post('/login/user', getClientIp, user.login);
 app.post('/admin/auth', admin.auth);
 app.post('/admin/update/prizes/available', admin.update_available_prizes);
 
@@ -234,4 +235,30 @@ function restrict(req, res, next) {
     req.session.error = 'Access denied!';
     res.redirect('/admin/login');
   }
+}
+function getClientIp(req, res, next) {
+  var ipAddress;
+  // Amazon EC2 / Heroku workaround to get real client IP
+  var forwardedIpsStr = req.header('x-forwarded-for');
+  if (forwardedIpsStr) {
+    // 'x-forwarded-for' header may return multiple IP addresses in
+    // the format: "client IP, proxy 1 IP, proxy 2 IP" so take the
+    // the first one
+    var forwardedIps = forwardedIpsStr.split(',');
+    ipAddress = forwardedIps[0];
+  }
+  if (!ipAddress) {
+    // Ensure getting client IP address still works in
+    // development environment
+    ipAddress = req.connection.remoteAddress;
+  }
+  console.log(ipAddress);
+  IPBlocklist.findIP(ipAddress, function(err, ip) {
+    if(ip) {
+      res.redirect("/user/blockedip");
+    } else {
+      next();
+    }
+  });
+  //return ipAddress;
 }
