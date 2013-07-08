@@ -150,9 +150,7 @@ exports.login = function(req, res){
         console.log("Valid User", user);
         if (user) {
             console.log("Legit User: ", user);
-            var arr = [];
-            arr.push(user);
-            req.session.user = arr;
+            req.session.user = user;
             res.redirect('/');
         } else {
             req.session.error = 'Authentication failed, please check your username and password.';
