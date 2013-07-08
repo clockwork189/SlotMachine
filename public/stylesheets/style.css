@@ -139,8 +139,8 @@ a {
   z-index: 0;
   position: absolute;
   background-image: url("../images/iphone.png");
-  left: 100px;
-  top: 240px;
+  left: 0px;
+  top: 20px;
 }
 
 .spin_to_win {
@@ -149,8 +149,8 @@ a {
   background-image: url("../images/spintowin_text.png");
   position: absolute;
   z-index: 0;
-  left: 270px;
-  top: 240px;
+  left: 180px;
+  top: 50px;
 }
 
 .ipod {
@@ -159,8 +159,8 @@ a {
   background-image: url("../images/ipod.png");
   position: absolute;
   z-index: 0;
-  left:550px;
-  top:285px;
+  left: 470px;
+  top: 85px;
 }
 .cta_arrow {
   width: 371px;
@@ -168,11 +168,12 @@ a {
   background-image: url("../images/cta_with_arrow.png");
   position: absolute;
   z-index: 0;
-  left:600px;
-  top:200px;
+  left: 520px;
+  top: 0px;
 }
 .header_canvas {
   height: 100px;
+  position: relative;
 }
 .how_to_play{
   float:right;
@@ -199,6 +200,8 @@ a {
 }
 .game_container {
   height: 600px;
+  width: 975px;
+  margin: 0 auto;
 }
 .spins_left_text {
   font-size: 26px;
