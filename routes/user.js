@@ -157,8 +157,7 @@ exports.getGameParams = function(req, res) {
 };
 exports.updatePlayer = function(req, res) {
     var user = req.body;
-    console.log(user);
-    Users.updateUser(user, function(err, result) {
+    Users.updateUserById(user, function(err, result) {
         req.session.user = result;
         res.json({success: "true"});
     });

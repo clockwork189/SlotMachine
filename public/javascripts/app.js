@@ -161,6 +161,7 @@ var Game = function (kwargs) {
     };
     var setSpins = function () {
         var digits = numPlays.toString().split('');
+        $(".spins_left .count").text(0);
         if(digits.length === 1) {
             $(".spins_left .count:eq(3)").text(digits[0]);
         } else if(digits.length === 2) {

@@ -68,6 +68,28 @@ exports.updateUser = function(user, callback) {
 	});
 };
 
+exports.updateUserById = function(user, callback) {
+	console.log('Updating user');
+	SPMongo.db.collection('users', function(err, collection) {
+		var id = collection.db.bson_serializer.ObjectID.createFromHexString(user._id);
+		delete user._id;
+		collection.update({'_id': id}, user, {safe:true}, function(err, result) {
+			if(err) {
+				console.log("Error", err);
+				callback(err);
+			} else {
+				collection.findOne({'_id': id}, function(err, usr) {
+					if(err) {
+						callback(err);
+					} else {
+						callback(null, usr);
+					}
+				});
+			}
+		});
+	});
+};
+
 exports.deleteUser = function(email, callback) {
 	console.log('Deleting users: ' + email);
 	SPMongo.db.collection('users', function(err, collection) {

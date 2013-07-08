@@ -10,6 +10,7 @@ exports.index = function(req, res){
     GameSettings.findSettings(function(err, game_settings) {
         Prizes.findAll(function(err, prizes) {
             var usr;
+            console.log(req.session.user);
             if(req.session.user) {
                 usr = req.session.user;
             }
