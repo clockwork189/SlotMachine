@@ -38,7 +38,9 @@
 				<p style="float:left;">Invite Friends </p>
 				<a href="#" class="facebook_invite"><div style="float:left;" class="invite_facebook"></div></a>
 				<a href="#" class="twitter_invite"><div style="float:left;" class="invite_twitter"></div></a>
-				<a href="#" class="googleplus_invite"><div style="float:left;" class="invite_google"></div></a>
+				<a href="#" class="googleplus_invite">
+					<div style="float:left;" data-clientid="206420410955.apps.googleusercontent.com" data-contenturl="{{ shortenedURL }}" data-calltoactionlabel="INVITE" data-calltoactionurl="https://developers.google.com/+/web/share/interactive?invite=true" data-cookiepolicy="single_host_origin" data-prefilltext="{{ settings.googleplus_invite_text }}" class="invite_google g-interactivepost"></div>
+				</a>
 				<a href="#" class="email_invite"><div style="float:left;" class="invite_email"></div></a>
 			</div><br/><br/>
 			<p><span class="gray_text">Your email and contact lists are kept completely private. We will not send emails to your contacts without your consent. <a href="/privacy">Privacy Policy</a></span></p>
@@ -93,5 +95,12 @@
         }
 </script>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<script type="text/javascript">
+  (function() {
+   var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+   po.src = 'https://apis.google.com/js/client:plusone.js';
+   var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+ })();
+</script>
 <script src="/javascripts/app/earnmore.js"></script>
 {% endblock %}
