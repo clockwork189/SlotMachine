@@ -56,16 +56,18 @@ passport.use(new FacebookStrategy({
     clientID: "376845965748399",
     clientSecret: "36b3561ebfd0eba7935baba8f7e537ec",
     callbackURL: "http://localhost:3000/auth/facebook/callback", // Change this when LIVE
-    profileFields: ['id','displayName', 'emails', 'photos']
+    profileFields: ['id','displayName', 'emails', 'photos'],
+    passReqToCallback: true
   },
-  function(accessToken, refreshToken, profile, done) {
+  function(req, accessToken, refreshToken, profile, done) {
     var fullName = profile._json.name;
     var email = profile._json.email;
     var pictureURL = profile._json.picture.data.url;
+    var referralId = req.session.referral || "";
     // asynchronous verification, for effect...
     process.nextTick(function () {
       // console.log(profile);
-      user.add(email, fullName, "facebook", accessToken, refreshToken, pictureURL, function (err, user) {
+      user.add(email, fullName, "facebook", accessToken, refreshToken, pictureURL, referralId, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });
@@ -98,15 +100,17 @@ passport.use(new TwitterStrategy({
 passport.use(new GoogleStrategy({
     clientID: "206420410955.apps.googleusercontent.com",
     clientSecret: "6kwVKkodeGjw6bpeeJxRJhYs",
-    callbackURL: "/auth/google/callback"
+    callbackURL: "/auth/google/callback",
+    passReqToCallback: true
   },
-  function(token, tokenSecret, profile, done) {
+  function(req, token, tokenSecret, profile, done) {
     var fullName = profile._json.name;
     var username = profile._json.email;
     var email = profile._json.email;
     var pictureURL =  profile._json.picture;
+    var referralId = req.session.referral || "";
     process.nextTick(function () {
-      user.add(email, fullName, "google", token, tokenSecret, pictureURL, function (err, user) {
+      user.add(email, fullName, "google", token, tokenSecret, pictureURL, referralId, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });
@@ -178,7 +182,6 @@ app.post('/admin/auth', admin.auth);
 app.post('/admin/update/prizes/available', admin.update_available_prizes);
 
 app.get('/logout', function(req, res){
-  console.log(req.session.user);
   req.logout();
   req.session.user = undefined;
   res.redirect('/');
@@ -203,7 +206,6 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.g
 
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
-    console.log(req.user);
     req.session.user = req.user;
     res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
   });

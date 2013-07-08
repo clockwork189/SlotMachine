@@ -27,9 +27,14 @@ exports.create = function(req, res){
             var ip = req.connection.remoteAddress;
             createNewUser(req.body.email, req.body.fullname, networksConnected, ip, game_settings[0].number_spins_per_user);
             Users.addUser(newUser, function(err, user) {
-                console.log("I will add the user to the session", user);
-                req.session.user = user;
-                res.redirect('/');
+                Users.findByUUID(req.session.referral, function(err, referrer) {
+                    referrer.numberSpins = referrer.numberSpins + game_settings[0].number_spins_per_invite;
+                    Users.updateUser(referrer, function(err, usr) {
+                        console.log("I will add the user to the session", user);
+                        req.session.user = user;
+                        res.redirect('/');
+                    });
+                });
             });
         });
     });
@@ -52,8 +57,14 @@ exports.addTwitterEmail = function (req, res) {
                 var ip = req.connection.remoteAddress;
                 var newUser = createNewUser(email, usr.full_name, networksConnected, ip, game_settings[0].number_spins_per_user, usr.pictureURL);
                 Users.addUser(newUser, function(err, user) {
-                    req.session.user = user;
-                    res.redirect("/");
+                    Users.findByUUID(req.session.referral, function(err, referrer) {
+                        referrer.numberSpins = referrer.numberSpins + game_settings[0].number_spins_per_invite;
+                        Users.updateUser(referrer, function(err, usr) {
+                            console.log("I will add the user to the session", user);
+                            req.session.user = user;
+                            res.redirect('/');
+                        });
+                    });
                 });
             });
         }
@@ -94,7 +105,7 @@ function checkFacebookLikes(accessToken, callback) {
  * add user.
  */
 
-exports.add = function(email, fullname, method, token, tokenSecret, pictureURL, callback){
+exports.add = function(email, fullname, method, token, tokenSecret, pictureURL, referralId, callback){
     GameSettings.findSettings(function(err, game_settings) {
         Users.findByEmail(email, function(err, user) {
             var settings = game_settings[0];
@@ -108,7 +119,12 @@ exports.add = function(email, fullname, method, token, tokenSecret, pictureURL, 
                 var networksConnected = assignNetwork({}, method, token, tokenSecret);
                 var newUser = createNewUser(email, fullname, networksConnected, "", settings.number_spins_per_user, pictureURL);
                 Users.addUser(newUser, function(err, user) {
-                    callback(err, user);
+                    Users.findByUUID(referralId, function(err, referrer) {
+                        referrer.numberSpins = referrer.numberSpins + settings.number_spins_per_invite;
+                        Users.updateUser(referrer, function(err, usr) {
+                            callback(err, user);
+                        });
+                    });
                 });
             }
         });

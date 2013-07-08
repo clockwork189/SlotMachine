@@ -1,15 +1,17 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="navbar">
-  	<div class="navbar-inner">
-    	<a class="brand" href="/admin/index"><img src="/images/logo.png" style="width: 170px;" /></a>
-    	<ul class="nav" style="float:right;">
-      		<li><a href="/admin/index">Home</a></li>
-      		<li><a href="/admin/view/users">View Users</a></li>
-      		<li class="active"><a href="/admin/view/winners">View Winners</a></li>
-      		<li><a href="/admin/view/prizes">View Prizes Awarded</a></li>
-    	</ul>
-  	</div>
+    <div class="navbar-inner">
+        <a class="brand" href="/admin/index"><img src="/images/logo.png" style="width: 100px;" /></a>
+        <ul class="nav" style="float:right;">
+            <li><a href="/admin/index">Home</a></li>
+            <li><a href="/admin/settings">Game Settings</a></li>
+            <li><a href="/admin/view/users">Users</a></li>
+            <li class="active"><a href="/admin/view/winners">Winners</a></li>
+            <li><a href="/admin/view/prizes">Prizes</a></li>
+            <li><a href="/admin/view/prizes">IP Block List</a></li>
+        </ul>
+    </div>
 </div>
 <div class="container admin">
 	<h1>View Winners</h1>
@@ -17,15 +19,13 @@
     <tr>
       <th style="width:250px;">Full Name</th>
       <th style="width:250px;">Email</th>
-      <th>Authentication Method</th>
       <th>Prize Won</th>
     </tr>
     {% for winner in winners %}
     <tr>
       <td>{{winner.user.full_name}}</td>
       <td>{{winner.user.email}}</td>
-      <td>{{winner.user.authentication_method}}</td>
-      <td>{{winner.prize }}</td>
+      <td>{{winner.prize.name }}</td>
     </tr>
     {% endfor %}
   </table>

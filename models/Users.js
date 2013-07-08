@@ -24,6 +24,18 @@ exports.findAll = function(callback) {
 		});
 	});
 };
+exports.findByUUID = function(uuid, callback) {
+	console.log('Retrieving user by uuid: ' + uuid);
+	SPMongo.db.collection('users', function(err, collection) {
+		collection.findOne({'unique_identifier':uuid}, function(err, user) {
+			if(err) {
+				callback(err);
+			} else {
+				callback(null, user);
+			}
+		});
+	});
+};
 
 exports.addUser = function(user, callback) {
 	console.log('Adding user: ' + JSON.stringify(user));
