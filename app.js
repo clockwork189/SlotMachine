@@ -26,7 +26,8 @@ var server = http.createServer(app);
 var io = socket.listen(server, { log: false});
 
 app.configure('development', function() {
-  app.set('db-name', "slotmachine_1");
+  app.set('db-name', 'slotmachine_1');
+  app.set('facebook-callback', 'http://localhost:3000/auth/facebook/callback');
   app.use(express.errorHandler({ dumpExceptions: true }));
   app.set('view options', {
   pretty: true
@@ -35,6 +36,7 @@ app.configure('development', function() {
 
 app.configure('production', function() {
   app.set('db-name', "slotmachine_1");
+  app.set('facebook-callback', 'http://enigmatic-shelf-2216.herokuapp.com/auth/facebook/callback');
 });
 
 // Passport session setup.
@@ -55,7 +57,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
     clientID: "376845965748399",
     clientSecret: "36b3561ebfd0eba7935baba8f7e537ec",
-    callbackURL: "http://localhost:3000/auth/facebook/callback" // Change this when LIVE
+    callbackURL: app.settings['facebook-callback']
   },
   function(accessToken, refreshToken, profile, done) {
     var fullName = profile._json.name;
@@ -127,7 +129,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session({ store: new mongoStore({url: 'mongodb://rooster:b4ehuSephequ7r@ds031978.mongolab.com:31978/slotmachine_1/sessions'}), secret: 'topsecret' }));
+  app.use(express.session({ store: new mongoStore({url: 'mongodb://rooster:b4ehuSephequ7r@ds031978.mongolab.com:31978/' + app.settings["db-name"] + '/sessions'}), secret: 'topsecret' }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(express.static(path.join(__dirname, 'public')));
