@@ -63,15 +63,15 @@ a {
 	font-family: segoeUI;
 }
 .navbar-inverse .navbar-inner {
-  background-color: #cecece;
-  background: -webkit-rgb(218, 219, 224);
-  background: -o-rgb(218, 219, 224);
-  background: -ms-rgb(218, 219, 224);
-  background: -moz-rgb(218, 219, 224);
-  background: rgb(218, 219, 224);
+  background-color: #3bb9ff;
+  background: -webkit-rgb(59,185,255);
+  background: -o-rgb(59,185,255);
+  background: -ms-rgb(59,185,255);
+  background: -moz-rgb(59,185,255);
+  background: rgb(59,185,255);
 }
 .navbar-inverse .nav .active>a, .navbar-inverse .nav .active>a:hover {
-  background-color: #bebebe;
+  background-color: #3bb9ff;
 }
 .navbar-inverse .nav li a, .navbar-inverse .nav li a:hover {
   color: #000;
