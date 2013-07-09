@@ -27,7 +27,13 @@ var io = socket.listen(server, { log: false});
 
 app.configure('development', function() {
   app.set('db-name', 'slotmachine_1');
-  app.set('facebook-callback', 'http://localhost:3000/auth/facebook/callback');
+  app.set('db-username', 'rooster');
+  app.set('db-password', 'b4ehuSephequ7r');
+  app.set('db-port', '31978');
+  app.set('db-host', 'ds031978.mongolab.com');
+  app.set('site_url', 'http://localhost:3000');
+  app.set('facebook-callback', app.settings['site_url'] + '/auth/facebook/callback');
+  app.set('referral-url', app.settings['site_url'] + '/referral/');
   app.use(express.errorHandler({ dumpExceptions: true }));
   app.set('view options', {
   pretty: true
@@ -35,8 +41,14 @@ app.configure('development', function() {
 });
 
 app.configure('production', function() {
-  app.set('db-name', "slotmachine_1");
-  app.set('facebook-callback', 'http://enigmatic-shelf-2216.herokuapp.com/auth/facebook/callback');
+  app.set('db-name', 'slotmachine_1');
+  app.set('db-username', 'rooster');
+  app.set('db-password', 'b4ehuSephequ7r');
+  app.set('db-port', '31978');
+  app.set('db-host', 'ds031978.mongolab.com');
+  app.set('site_url', 'http://enigmatic-shelf-2216.herokuapp.com');
+  app.set('facebook-callback', app.settings['site_url'] + '/auth/facebook/callback');
+  app.set('referral-url', app.settings['site_url'] + '/referral/');
 });
 
 // Passport session setup.
@@ -57,14 +69,19 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new FacebookStrategy({
     clientID: "376845965748399",
     clientSecret: "36b3561ebfd0eba7935baba8f7e537ec",
-    callbackURL: app.settings['facebook-callback']
+    callbackURL: app.settings['facebook-callback'],
+    profileFields: ['id', 'displayName', 'photos', 'emails'],
+    passReqToCallback: true
   },
-  function(accessToken, refreshToken, profile, done) {
+  function(req, accessToken, refreshToken, profile, done) {
     var fullName = profile._json.name;
     var email = profile._json.email;
+    var picture = profile._json.picture.data.url;
+    var session = req.session || "";
+    var referral = session.referral || "";
     // asynchronous verification, for effect...
     process.nextTick(function () {
-      user.add(email, fullName, "facebook", accessToken, refreshToken, function (err, user) {
+      user.add(email, fullName, "facebook", accessToken, refreshToken, picture, referral, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });
@@ -85,7 +102,8 @@ passport.use(new TwitterStrategy({
           email: "",
           full_name: fullName,
           token: token,
-          tokenSecret: tokenSecret
+          tokenSecret: tokenSecret,
+          pictureURL: profile._json.profile_image_url
       };
       req.session.user = newUser;
       done(null, newUser);
@@ -97,12 +115,15 @@ passport.use(new GoogleStrategy({
     clientSecret: "6kwVKkodeGjw6bpeeJxRJhYs",
     callbackURL: "/auth/google/callback"
   },
-  function(token, tokenSecret, profile, done) {
+  function(req, token, tokenSecret, profile, done) {
     var fullName = profile._json.name;
     var username = profile._json.email;
     var email = profile._json.email;
+    var pictureURL = profile._json.picture;
+    var session = req.session || "";
+    var referral = session.referral || "";
     process.nextTick(function () {
-      user.add(email, fullName, "google", token, tokenSecret, function (err, user) {
+      user.add(email, fullName, "google", token, tokenSecret, pictureURL, referral, function (err, user) {
         if (err) { return done(err); }
         done(null, user);
       });
@@ -129,7 +150,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser('your secret here'));
-  app.use(express.session({ store: new mongoStore({url: 'mongodb://rooster:b4ehuSephequ7r@ds031978.mongolab.com:31978/' + app.settings["db-name"] + '/sessions'}), secret: 'topsecret' }));
+  app.use(express.session({ store: new mongoStore({url: 'mongodb://' + app.settings['db-username'] + ':' + app.settings['db-password'] + '@' + app.settings['db-host']+ ':' + app.settings['db-port'] + '/' + app.settings["db-name"] + '/sessions'}), secret: 'topsecret' }));
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(express.static(path.join(__dirname, 'public')));
@@ -171,8 +192,7 @@ app.get('/logout', function(req, res){
 app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback',  passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
-    req.session.user = [];
-    req.session.user[0] = req.user;
+    req.session.user = req.user;
     res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
   });
 
@@ -180,8 +200,7 @@ app.get('/auth/facebook/callback',  passport.authenticate('facebook', { failureR
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/callback', passport.authenticate('twitter', {scope: "email", failureRedirect: '/' }),
   function(req, res) {
-    req.session.user = [];
-    req.session.user[0] = req.user;
+    req.session.user = req.user;
     res.render('twitterauthcallback.html', { title: 'Spin To Win: Authentication Success'});
   });
 
@@ -191,8 +210,7 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['https://www.g
 app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }),
   function(req, res) {
     console.log(req.user);
-    req.session.user = [];
-    req.session.user[0] = req.user;
+    req.session.user = req.user;
     res.render('authcallback.html', { title: 'Spin To Win: Authentication Success'});
   });
 

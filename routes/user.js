@@ -162,14 +162,16 @@ exports.getGameParams = function(req, res) {
     GameSettings.findSettings(function(err, game_settings) {
         Prizes.findAll(function(err, prizes) {
             Winners.findAll(function(err, winners) {
-                // var awardedPrizes = {};
-                // for(var i = 0; i < winners.length; i++) {
-                //     if(awardedPrizes[winners[i].prize._id]) {
-                //         awardedPrizes[winners[i].prize._id] += 1;
-                //     } else {
-                //         awardedPrizes[winners[i].prize._id] = 1;
-                //     }
-                // }
+                for(var i = 0; i < winners.length; i++) {
+                    for(var n = 0; n < prizes.length; n++) {
+                        if(winners[i].prize._id == prizes[n]._id) {
+                            prizes[n].number_available -= 1;
+                            if(prizes[n].number_available < 0) {
+                                prizes[n].number_available = 0;
+                            }
+                        }
+                    }
+                }
                 var usr;
                 if(req.session.user) {
                     usr = req.session.user;

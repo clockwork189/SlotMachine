@@ -241,7 +241,7 @@ var Game = function (kwargs) {
     };
     var checkVictory = function (slot1, slot2, slot3) {
         if(slot1 === slot2 && slot2 === slot3) {
-            if(awardedPrizes >= availablePrizesToday) {
+            if(awardedPrizes >= availablePrizesToday && prizes[slot1].number_available < 0) {
                 calculatePrize();
             }
         }
