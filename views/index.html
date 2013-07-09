@@ -66,14 +66,14 @@
 	</div>
 	{% if prizes.length > 0 %}
 	<div class="our_prizes">
-		<h2 style="color: #1065b4; margin-left:20px;">Our Prizes</h2>
-		<div class="container" style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; ">
+		<h2 style="color: #1065b4; margin-left:75px;">Our Prizes</h2>
+		<div class="container" style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; width:810px; ">
 		  	<div id="myCarousel" class="carousel slide">
 			  <!-- Carousel items -->
 			  <div class="carousel-inner">
 			  		{% for prize in prizes%}
 			  			{{ loop.cycle('<div class="item">', '', '')}}
-				    		<div style="background-image: url({{prize.image_url}}); width: 150px; height: 200px; background-position: -17px; float: left; margin-right:50px; margin-left:100px;"></div>
+				    		<div style="background-image: url({{prize.image_url}}); width: 150px; height: 200px; background-position: -17px; float: left; margin-right:50px; margin-left:55px;"></div>
 				    	{{ loop.cycle('', '', '</div>')}}
 			    	{% endfor %}
 				    </div>
@@ -84,14 +84,14 @@
 	{% endif %}
 	{% if winners.length > 4 %}
 	<div class="our_prizes">
-		<h2 style="color: #1065b4; margin-left:20px;">Recent Winners</h2>
+		<h2 style="color: #1065b4; margin-left:75px;">Recent Winners</h2>
 		<div class="container">
 		  	<div id="myWinners" class="carousel slide">
 			  <!-- Carousel items -->
-			  <div class="carousel-inner">
+			  <div class="carousel-inner" style="height:240px; padding-left: 20px;">
 			  		{% for winner in winners%}
 			  			{{ loop.cycle('<div class="item">', '', '', '')}}
-			  				<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			  				<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-left:40px; margin-right:20; width:155px; padding: 2px;">
 				    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
 				    			<div style="margin:10px;">
 									<div style="float:left;">
@@ -111,13 +111,13 @@
 	</div>
 	{% else %}
 		<div class="our_prizes">
-			<h2 style="color: #1065b4; margin-left:20px;">Recent Winners</h2>
+			<h2 style="color: #1065b4; margin-left:75px;">Recent Winners</h2>
 			<div class="container">
 			  	<div id="myWinners" class="carousel slide">
 				  <!-- Carousel items -->
-				  <div class="carousel-inner" style="height:240px;">
+				  <div class="carousel-inner" style="height:240px; padding-left: 20px;">
 				  		{% set winner = winners[0] %}
-		  				<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+		  				<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-left:40px; margin-right:20; width:155px; padding: 2px;">
 			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
 			    			<div style="margin:10px;">
 								<div style="float:left;">
@@ -128,7 +128,7 @@
 								</div>
 			    			</div>
 			    		</div>
-			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-left:40px; margin-right:20; width:155px; padding: 2px;">
 			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
 			    			<div style="margin:10px;">
 								<div style="float:left;">
@@ -139,7 +139,7 @@
 								</div>
 			    			</div>
 			    		</div>
-			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-left:40px; margin-right:20; width:155px; padding: 2px;">
 			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
 			    			<div style="margin:10px;">
 								<div style="float:left;">
@@ -150,7 +150,7 @@
 								</div>
 			    			</div>
 			    		</div>
-			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-left:40px; margin-right:20; width:155px; padding: 2px;">
 			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
 			    			<div style="margin:10px;">
 								<div style="float:left;">
