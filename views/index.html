@@ -82,6 +82,90 @@
 		</div>
 	</div>
 	{% endif %}
+	{% if winners.length > 4 %}
+	<div class="our_prizes">
+		<h2 style="color: #1065b4; margin-left:20px;">Recent Winners</h2>
+		<div class="container">
+		  	<div id="myWinners" class="carousel slide">
+			  <!-- Carousel items -->
+			  <div class="carousel-inner">
+			  		{% for winner in winners%}
+			  			{{ loop.cycle('<div class="item">', '', '', '')}}
+			  				<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+				    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
+				    			<div style="margin:10px;">
+									<div style="float:left;">
+										<img src="{{winner.user.pictureURL}}" style="width:30px; height:30px;" />
+									</div>
+									<div style="float: left; text-shadow: none; font-size: 12px; width: 100px; margin-left: 3px;">
+										{{ winner.user.full_name }} <span class="highlight">WON</span> a {{ winner.prize.name}} on <strong>{{ winner.date_created|date('F jS, Y') }}</strong>
+									</div>
+				    			</div>
+				    		</div>
+				    	{{ loop.cycle('', '', '', '</div>')}}
+			    	{% endfor %}
+				    </div>
+			  </div>
+			</div>
+		</div>
+	</div>
+	{% else %}
+		<div class="our_prizes">
+			<h2 style="color: #1065b4; margin-left:20px;">Recent Winners</h2>
+			<div class="container">
+			  	<div id="myWinners" class="carousel slide">
+				  <!-- Carousel items -->
+				  <div class="carousel-inner" style="height:240px;">
+				  		{% set winner = winners[0] %}
+		  				<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
+			    			<div style="margin:10px;">
+								<div style="float:left;">
+									<img src="{{winner.user.pictureURL}}" style="width:30px; height:30px;" />
+								</div>
+								<div style="float: left; text-shadow: none; font-size: 12px; width: 100px; margin-left: 3px;">
+									{{ winner.user.full_name }} <span class="highlight">WON</span> a {{ winner.prize.name}} on <strong>{{ winner.date_created|date('F jS, Y') }}</strong>
+								</div>
+			    			</div>
+			    		</div>
+			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
+			    			<div style="margin:10px;">
+								<div style="float:left;">
+									<img src="{{winner.user.pictureURL}}" style="width:30px; height:30px;" />
+								</div>
+								<div style="float: left; text-shadow: none; font-size: 12px; width: 100px; margin-left: 3px;">
+									{{ winner.user.full_name }} <span class="highlight">WON</span> a {{ winner.prize.name}} on <strong>{{ winner.date_created|date('F jS, Y') }}</strong>
+								</div>
+			    			</div>
+			    		</div>
+			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
+			    			<div style="margin:10px;">
+								<div style="float:left;">
+									<img src="{{winner.user.pictureURL}}" style="width:30px; height:30px;" />
+								</div>
+								<div style="float: left; text-shadow: none; font-size: 12px; width: 100px; margin-left: 3px;">
+									{{ winner.user.full_name }} <span class="highlight">WON</span> a {{ winner.prize.name}} on <strong>{{ winner.date_created|date('F jS, Y') }}</strong>
+								</div>
+			    			</div>
+			    		</div>
+			    		<div style="background-color:#fff; -webkit-box-shadow: 0 8px 6px -6px black; -moz-box-shadow: 0 8px 6px -6px black; box-shadow: 0 8px 6px -6px black; float:left;  margin-right:75px; width:155px; padding: 2px;">
+			    			<div style="background-image: url({{winner.prize.image_url}}); width: 150px; height: 150px; background-position: -17px -13px; margin: 0 auto; border:1px solid #cecece;"></div>
+			    			<div style="margin:10px;">
+								<div style="float:left;">
+									<img src="{{winner.user.pictureURL}}" style="width:30px; height:30px;" />
+								</div>
+								<div style="float: left; text-shadow: none; font-size: 12px; width: 100px; margin-left: 3px;">
+									{{ winner.user.full_name }} <span class="highlight">WON</span> a {{ winner.prize.name}} on <strong>{{ winner.date_created|date('F jS, Y') }}</strong>
+								</div>
+			    			</div>
+			    		</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	{% endif %}
 </div>
 <!-- Modal -->
 <div id="signup" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -186,6 +270,7 @@
 	}(document, 'script', 'facebook-jssdk'));
 
 	$("#myCarousel .carousel-inner .item:first").addClass("active");
+	$("#myWinners .carousel-inner .item:first").addClass("active");
 	</script>
 <script src="javascripts/app.js"></script>
 <script src="javascripts/skeleton.js"></script>

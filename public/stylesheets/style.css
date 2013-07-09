@@ -129,7 +129,7 @@ a {
   -khtml-border-radius: 5px;
   border-radius: 5px;
   width: 975px;
-  margin: 100px auto;
+  margin: 100px auto 20px auto;
 }
 
 .iphone{
@@ -436,4 +436,7 @@ a {
 .widget_text {
   color: green;
   font-size: 28px;
+}
+#myWinners .item {
+  height: 270px;
 }
