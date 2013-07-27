@@ -166,6 +166,7 @@ app.get('/referral/:referralid', routes.addReferral); // Change this to the appr
 app.get('/privacy', routes.privacy);
 app.get('/earnmorespins', routes.earnmorespins);
 app.get('/getemail', routes.getemail);
+app.get('/modal_sign_up', routes.modal_signup);
 app.get('/admin/login', admin.login);
 app.get('/admin/index', restrict, admin.index);
 app.get('/admin/add', admin.add);

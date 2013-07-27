@@ -1,0 +1,4 @@
+.gt-ie8 .btn,
+.gt-ie8 .counter .digits span {
+    filter:none !important;
+}

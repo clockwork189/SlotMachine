@@ -18,7 +18,7 @@ var Skeleton = function () {
             url:"/post/game/params",
             dataType: "json",
             success:function(result){
-                var game = new Game(result);
+                var game = new SpinGame(result);
                 game.init();
             }
         });

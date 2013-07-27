@@ -141,7 +141,7 @@ var Tile = function (x, y, id, img) {
     this.image = img;
 };
 
-var Game = function (kwargs) {
+var SpinGame = function (kwargs) {
     var self = {};
     kwargs = kwargs || {};
     var user = kwargs.user || {};
@@ -202,7 +202,7 @@ var Game = function (kwargs) {
         });
     };
     var listenToPlayButton = function () {
-        $("#play").click(function() {
+        $("#btn-spin").click(function() {
             var today = new Date();
             if(endDate < today){
                 $('#ended').modal();

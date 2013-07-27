@@ -55,3 +55,6 @@ exports.addReferral = function (req, res) {
 exports.blockIP = function (req,res) {
     res.render('blockedip.html', { title: 'Spin To Win'});
 };
+exports.modal_signup = function (req, res) {
+    res.render('modal_signup.html', { title: 'Spin To Win'});
+};
