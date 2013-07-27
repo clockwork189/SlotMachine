@@ -1,70 +1,68 @@
 <div class="modal">
-	<div class="modal-header">
-		<h3>Sign up to TheStore.com</h3>
-		<a class="close"></a>
-	</div>
-	<div class="modal-body">
-		<div class="social">
-			<h4>Sign up using your favorite social network</h4>
-			<a class="btn btn-split btn-social btn-facebook" href="#fb-sign-up"><i class="icon-facebook"></i> Facebook</a>
-			<a class="btn btn-split btn-social btn-google" href="#google-sign-up"><i class="icon-google-plus"></i> Google</a>
-			<a class="btn btn-split btn-social btn-twitter" href="#twitter-sign-up"><i class="icon-twitter"></i> Twitter</a>
-			<a class="more" href="javascript:;">other social networks &raquo;</a>
-		</div>
-	</div>
+       <div class="modal-header">
+               <h3>Sign up to TheStore.com</h3>
+               <a class="close"></a>
+       </div>
+       <div class="modal-body">
+               <div class="social">
+                       <h4>Sign up using your favorite social network</h4>
+                       <a class="btn btn-split btn-social btn-facebook" href="#"  onclick="facebookAuth()"><i class="icon-facebook"></i> Facebook</a>
+                       <a class="btn btn-split btn-social btn-google" href="#" onclick="googleAuth()"><i class="icon-google-plus"></i> Google</a>
+                       <a class="btn btn-split btn-social btn-twitter" href="#" onclick="twitterAuth()"><i class="icon-twitter"></i> Twitter</a>
+                       <a class="more" href="javascript:;">other social networks &raquo;</a>
+               </div>
+       </div>
 </div>
 
 <div class="modal-splitter"><div>or</div></div>
 
 <div class="modal">
-	<form class="modal-form">
-		<div class="modal-body">
-			<h4><i class="icon-large icon-email"></i> <a href="#email-sign-up">Sign up using email address</a></h4>
+       <form class="modal-form">
+               <div class="modal-body">
+                       <h4><i class="icon-large icon-email"></i> <a href="#email-sign-up">Sign up using email address</a></h4>
 
-			<fieldset class="hidden">
-				<legend id="email-sign-up"><i class="icon-large icon-email"></i> Sign up using email address</legend>
-				<legend class="hidden" id="fb-sign-up"><i class="icon-large icon-facebook"></i> Sign up with Facebook</legend>
-				<legend class="hidden" id="google-sign-up"><i class="icon-large icon-google-plus"></i> Sign up with Google Plus</legend>
-				<legend class="hidden" id="twitter-sign-up"><i class="icon-large icon-twitter"></i> Sign up with Twitter</legend>
+                       <fieldset class="hidden">
+                               <legend id="email-sign-up"><i class="icon-large icon-email"></i> Sign up using email address</legend>
+                               <legend class="hidden" id="fb-sign-up"><i class="icon-large icon-facebook"></i> Sign up with Facebook</legend>
+                               <legend class="hidden" id="google-sign-up"><i class="icon-large icon-google-plus"></i> Sign up with Google Plus</legend>
+                               <legend class="hidden" id="twitter-sign-up"><i class="icon-large icon-twitter"></i> Sign up with Twitter</legend>
 
-				<div class="control">
-					<input class="input-block-level" type="text" name="fullname" placeholder="Full name" />
-				</div>
-				<div class="control">
-					<input class="input-block-level" type="text" name="username" placeholder="Username" />
-				</div>
-				<div class="control">
-					<input class="input-block-level" type="text" name="email" placeholder="Email Address" />
-				</div>
-				<div class="control">
-					<input class="input-block-level" type="password" name="pass" placeholder="Password" />
-				</div>
-				<div class="control">
-					<input class="input-block-level" type="password" name="pass_repeat" placeholder="Repeat Password" />
-				</div>
+                               <div class="control">
+                                       <input class="input-block-level" type="text" name="fullname" placeholder="Full name" />
+                               </div>
+                               <div class="control">
+                                       <input class="input-block-level" type="text" name="username" placeholder="Username" />
+                               </div>
+                               <div class="control">
+                                       <input class="input-block-level" type="text" name="email" placeholder="Email Address" />
+                               </div>
+                               <div class="control">
+                                       <input class="input-block-level" type="password" name="pass" placeholder="Password" />
+                               </div>
+                               <div class="control">
+                                       <input class="input-block-level" type="password" name="pass_repeat" placeholder="Repeat Password" />
+                               </div>
 
-				<div class="hidden" class="checkbox" id="fb-allow">
-					<label><input type="checkbox" name="allow_fb" /> Allow TheStore.com to automatically post to Facebook</label>
-				</div>
-				<div class="hidden" class="checkbox" id="google-allow">
-					<label><input type="checkbox" name="allow_google" /> Allow TheStore.com to automatically post to Google Plus</label>
-				</div>
-				<div class="hidden" class="checkbox" id="twitter-allow">
-					<label><input type="checkbox" name="allow_twitter" /> Allow TheStore.com to automatically post to Twitter</label>
-				</div>
+                               <div class="hidden" class="checkbox" id="fb-allow">
+                                       <label><input type="checkbox" name="allow_fb" /> Allow TheStore.com to automatically post to Facebook</label>
+                               </div>
+                               <div class="hidden" class="checkbox" id="google-allow">
+                                       <label><input type="checkbox" name="allow_google" /> Allow TheStore.com to automatically post to Google Plus</label>
+                               </div>
+                               <div class="hidden" class="checkbox" id="twitter-allow">
+                                       <label><input type="checkbox" name="allow_twitter" /> Allow TheStore.com to automatically post to Twitter</label>
+                               </div>
 
-				<div class="checkbox">
-					<label><input type="checkbox" name="is_business" /> Sign up as a business <i class="icon-help" title="Help text here"></i></label>
-				</div>
+                               <div class="checkbox">
+                                       <label><input type="checkbox" name="is_business" /> Sign up as a business <i class="icon-help" title="Help text here"></i></label>
+                               </div>
 
-			</fieldset>
+                       </fieldset>
 
-		</div>
-		<div class="modal-footer">
-			<a class="pull-left alt" href="javascript:;" data-target="modalSignIn">I already have an account</a>
-			<button class="btn btn-primary hidden" type="submit">Create Account</button>
-		</div>
-	</form>
+               </div>
+               <div class="modal-footer">
+                       <a class="pull-left alt" href="javascript:;" data-target="modalSignIn">I already have an account</a>
+                       <button class="btn btn-primary hidden" type="submit">Create Account</button>
+               </div>
+       </form>
 </div>
-
-    

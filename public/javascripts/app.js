@@ -175,21 +175,21 @@ var SpinGame = function (kwargs) {
     };
     var setSpins = function () {
         var digits = numPlays.toString().split('');
-        $(".spins_left .count").text(0);
+        $(".counter .digits  span").text(0);
         if(digits.length === 1) {
-            $(".spins_left .count:eq(3)").text(digits[0]);
+            $(".counter .digits span:eq(3)").text(digits[0]);
         } else if(digits.length === 2) {
-            $(".spins_left .count:eq(3)").text(digits[1]);
-            $(".spins_left .count:eq(2)").text(digits[0]);
+            $(".counter .digits  span:eq(3)").text(digits[1]);
+            $(".counter .digits  span:eq(2)").text(digits[0]);
         } else if(digits.length === 3) {
-            $(".spins_left .count:eq(3)").text(digits[2]);
-            $(".spins_left .count:eq(2)").text(digits[1]);
-            $(".spins_left .count:eq(1)").text(digits[0]);
+            $(".counter .digits  span:eq(3)").text(digits[2]);
+            $(".counter .digits  span:eq(2)").text(digits[1]);
+            $(".counter .digits  span:eq(1)").text(digits[0]);
         } else if(digits.length === 4) {
-            $(".spins_left .count:eq(3)").text(digits[3]);
-            $(".spins_left .count:eq(2)").text(digits[2]);
-            $(".spins_left .count:eq(1)").text(digits[1]);
-            $(".spins_left .count:eq(0)").text(digits[0]);
+            $(".counter .digits  span:eq(3)").text(digits[3]);
+            $(".counter .digits  span:eq(2)").text(digits[2]);
+            $(".counter .digits  span:eq(1)").text(digits[1]);
+            $(".counter .digits  span:eq(0)").text(digits[0]);
         }
     };
     var listenToEarnSpinsButton = function () {

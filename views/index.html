@@ -24,17 +24,24 @@
     <!--<script src="js/main.js"></script>-->
 </head>
 <body id="game">
-
+    <script src="/javascripts/auth.js"></script>
     <header>
         <div class="content clearfix">
             <h1 class="logo"><strong>The Store. Some more text here</strong><a href="#" class="logo">
                 <img src="/images/logo.png" alt="The Store" /></a>
             </h1>
             <nav class="account pull-right">
+                {% if user.email %}
+                    <ul class="nav-pills">
+                        <li><a href="#"><i class="icon-pencil"></i> Hi {{user.full_name}} </a></li>
+                        <li><a href="/logout"><i class="icon-user"></i>Logout</a></li>
+                    </ul>
+                {% else %}
                 <ul class="nav-pills">
                     <li><a data-target="modal" data-modal-split="1" data-modal-header="Sign Up" href="/modal_sign_up"><i class="icon-pencil"></i> Sign Up</a></li>
                     <li><a href="javascript:;"><i class="icon-user"></i> Sign In</a></li>
                 </ul>
+                {% endif %}
             </nav>
         </div>
     </header>
@@ -60,7 +67,7 @@
                 <aside>
                     <div class="counter">
                         <div class="digits">
-                            <span class="fade">0</span>
+                            <span>0</span>
                             <span>0</span>
                             <span>0</span>
                             <span>0</span>
@@ -210,6 +217,94 @@
     </footer>
 
     <div id="jf-place"></div>
+    <!-- Modal -->
+<div id="signup" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3>Sign Up Using:</h3><br/>
+    <div class="social_signups">
+        <a href="#" onclick="facebookAuth()" data-dismiss="modal"><div class="large_facebook"></div></a>
+        <a href="#" onclick="twitterAuth()" data-dismiss="modal"><div class="large_twitter"></div></a>
+        <a href="#" onclick="googleAuth()" data-dismiss="modal"><div class="large_googleplus"></div></a>
+    </div>
+  </div>
+  <div class="modal-body">
+    <p>or Register a new account</p>
+    <form class="modalForm" id="signupForm" method="post" action="/add/new/user">
+        <input type="text" placeholder="Full Name" name="fullname" /><br/><br/>
+        <input type="text" placeholder="Email Address" name="email" /><br/><br/>
+        <input type="password" placeholder="Password" name="password" /><br/><br/>
+        <input type="password" placeholder="Confirm Password" name="confirm_password" /><br/><br/>
+        <input type="button" class="modalSubmit" id="signup_button"/>
+    </form>
+    <a href="#login" data-toggle="modal" data-dismiss="modal"  style="float:right; color:#000;">Login</a>
+  </div>
+</div>
+<!-- Modal -->
+<div id="login" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Sign In Using:</h3><br/>
+        <div class="social_signups">
+            <a href="#" onclick="facebookAuth()" data-dismiss="modal"><div class="large_facebook"></div></a>
+            <a href="#" onclick="twitterAuth()" data-dismiss="modal"><div class="large_twitter"></div></a>
+            <a href="#" onclick="googleAuth()" data-dismiss="modal"><div class="large_googleplus"></div></a>
+        </div>
+    </div>
+    <div class="modal-body">
+        <p>or Sign in with your username/email address</p>
+        <form class="modalForm" id="signinform" method="post" action="/login/user">
+            <input type="text" placeholder="Email Address" name="email" /><br/><br/>
+            <input type="password" placeholder="Password" name="password" /><br/><br/>
+            <input type="button" class="modalSubmit" id="signin_button"/>
+        </form>
+        <div>
+            <a href="#" style="float:left; color:#000;  text-shadow: none;">Forgot password?</a>
+            <a href="#signup" data-toggle="modal" data-dismiss="modal" style="float:right; color:#000; text-shadow: none;">Register New Account</a>
+        </div>
+    </div>
+</div>
+<div id="nospinsleft" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="width:496px;">
+    <div class="modal-body">
+        <div class="row">
+            <div class="span4"><img src="/images/sadface.png"/></div>
+            <div class="span2"><img src="/images/zerospins.png"/></div>
+        </div>
+        <h3>Oh no, looks like you are out of spins!</h3>
+        <p>The good news is we have plenty of ways you can earn more!</p>
+        <p><br/></p>
+        <a href="#" class="earnMoreSpins btn btn-success">Learn How</a>
+    </div>
+    <img src="/images/bottom_modal.png" />
+</div>
+<div id="youwon" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="width:496px;">
+    <div class="modal-body">
+        <h4>Congratulations {{user.full_name}}! You won!</h4>
+        <div id="win_image"></div>
+        <p><br/></p>
+    </div>
+    <img src="/images/bottom_modal.png" />
+</div>
+<div id="ended" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true" style="width:496px;">
+    <div class="modal-body">
+        <h3>Sorry, the campaign has ended!</h3>
+        <p>Check back for more campaigns and promotions. </p>
+    </div>
+    <img src="/images/bottom_modal.png" />
+</div>
+<!-- Modal -->
+<div id="showAskEmail" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    </div>
+    <div class="modal-body">
+        <p>Please Enter your Email Address to complete your Signup.</p>
+        <form class="modalForm" id="emailform" method="post" action="/twitter/email">
+            <input type="text" placeholder="Email Address" name="email" /><br/><br/>
+            <input type="button" class="modalSubmit" id="add_email_button"/>
+        </form>
+    </div>
+</div>
     <script>
     {% if showAskEmail == true %}
         $("#showAskEmail").modal();
