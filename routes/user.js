@@ -210,11 +210,13 @@ function authenticate(email, pass, fn) {
     if (!module.parent) console.log('authenticating %s:%s', email, pass);
     Users.findByEmail(email, function(err, user) {
         if (!user) return fn(new Error('cannot find user'));
-        hash(pass, user.networks.email.token, function(err, hash) {
-            if (err) return fn(err);
-            if (hash == user.networks.email.tokenSecret) return fn(null, user);
-            fn(new Error('invalid password'));
-        });
+        if(user.networks.email) {
+            hash(pass, user.networks.email.token, function(err, hash) {
+                if (err) return fn(err);
+                if (hash == user.networks.email.tokenSecret) return fn(null, user);
+                fn(new Error('invalid password'));
+            });
+        }
     });
 }
 

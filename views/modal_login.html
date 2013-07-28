@@ -1,0 +1,24 @@
+<div class="modal">
+       <div class="modal-header">
+               <h3>Sign In to TheStore.com</h3>
+               <a class="close"></a>
+       </div>
+       <div class="modal-body">
+               <div class="social">
+                       <h4>Sign In using your favorite social network</h4>
+                       <a class="btn btn-split btn-social btn-facebook" href="#"  onclick="facebookAuth()"><i class="icon-facebook"></i> Facebook</a>
+                       <a class="btn btn-split btn-social btn-google" href="#" onclick="googleAuth()"><i class="icon-google-plus"></i> Google</a>
+                       <a class="btn btn-split btn-social btn-twitter" href="#" onclick="twitterAuth()"><i class="icon-twitter"></i> Twitter</a>
+               </div>
+       </div>
+</div>
+
+<div class="modal-splitter"><div>or</div></div>
+
+<div class="modal">
+       <form class="modalForm modal-form" id="signinform" method="post" action="/login/user">
+            <input type="text" placeholder="Email Address" name="email" /><br/><br/>
+            <input type="password" placeholder="Password" name="password" /><br/><br/>
+            <button class="btn btn-primary" id="signin_button" type="submit">Sign In</button>
+        </form>
+</div>

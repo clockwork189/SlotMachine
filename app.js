@@ -167,6 +167,8 @@ app.get('/privacy', routes.privacy);
 app.get('/earnmorespins', routes.earnmorespins);
 app.get('/getemail', routes.getemail);
 app.get('/modal_sign_up', routes.modal_signup);
+app.get('/modal_sign_in', routes.modal_signin);
+app.get('/modal_get_more_spins', routes.modal_get_more_spins);
 app.get('/admin/login', admin.login);
 app.get('/admin/index', restrict, admin.index);
 app.get('/admin/add', admin.add);

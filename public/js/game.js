@@ -49,8 +49,7 @@
 					var $this = $(this),
 						url = this.href,
 						split = $this.attr('data-modal-split'),
-						h = $this.attr('data-modal-header')
-						;
+						h = $this.attr('data-modal-header');
 					$.get(url, function(html){
 						_view.currentModal && _view.currentModal.trigger('jw.close');
 						$jf.showOverlay();
@@ -70,12 +69,10 @@
 					});
 					return false;
 				});
-				
 				Game && Game.init();
-				
 			});
 		}
-		
+
 		/**
 		 * Mediator pattern method
 		 */

@@ -45,7 +45,6 @@ exports.getemail = function (req, res) {
         res.render('index.html', { title: 'Spin To Win', settings: game_settings[0], user: req.session.user, showAskEmail: true });
     });
 };
-
 exports.addReferral = function (req, res) {
     var referrer = req.params.referralid;
     req.session.referral = referrer;
@@ -58,3 +57,10 @@ exports.blockIP = function (req,res) {
 exports.modal_signup = function (req, res) {
     res.render('modal_signup.html', { title: 'Spin To Win'});
 };
+exports.modal_signin = function (req, res) {
+    res.render('modal_login.html', { title: 'Spin To Win'});
+};
+exports.modal_get_more_spins = function (req, res) {
+    res.render('modal_get_more_spins.html', { title: 'Spin To Win'});
+};
+

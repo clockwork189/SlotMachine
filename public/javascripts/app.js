@@ -193,13 +193,11 @@ var SpinGame = function (kwargs) {
         }
     };
     var listenToEarnSpinsButton = function () {
-        $(".earnMoreSpins").click(function() {
-            if(kwargs.user === undefined) {
-                $('#signup').modal();
-            } else {
-                window.location = "/earnmorespins";
-            }
-        });
+        if(user.numberSpins !== undefined) {
+            $(".earnMoreSpins").attr({"href": "/earnmorespins"});
+        } else {
+            $(".earnMoreSpins").attr({"data-target": "modal", "data-modal-split": "1", "data-modal-header": "Get More Spins", "href": "/modal_sign_up"});
+        }
     };
     var listenToPlayButton = function () {
         $("#btn-spin").click(function() {
